@@ -15,55 +15,55 @@
 <body>
 <div style="background-color: snow;">
 <br>
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-1">
+<div class="row container-fluid">
+  <div class="col-2"></div>
+  <div class="col-1">
     <img src="resources/image/title.PNG" class="img-thumbnail">
   </div>
-  <div class="col-sm-1">
+  <div class="col-1">
     <button type="button" class="btn btn-secondary btn-sm">참여중</button><br>
   	<a>닉네임</a>
   </div>
-  <div class="col-sm-4">
+  <div class="col-4">
     <div class="input-group flex-nowrap text-center">
       <span class="input-group-text" id="addon-wrapping">1️⃣</span>
       <input type="text" class="form-control" placeholder="${serverTime}" aria-label="Username" aria-describedby="addon-wrapping">
     </div> 
   </div>
-  <div class="col-sm-2 text-end">
+  <div class="col-2 text-end">
     <a>고객지원</a>&nbsp;
     <span>|</span>&nbsp;
-    <a href="/join">회원가입</a>
+    <a>로그인</a>
   </div>
-  <div class="col-sm-2"></div>
+  <div class="col-2"></div>
 </div>
 
 <!-- 메뉴 바 -->
 <br style="background: snow;">
 <div class="row">
   <ul class="nav nav-tabs">
-    <li class="nav-item col-sm-2">
+    <li class="nav-item col-2">
       <a class="nav-link disabled" style="text-align: center;"> </a>
     </li>
-    <li class="nav-item col-sm-1">
-      <a class="nav-link active" aria-current="page" href="#" style="text-align: center;">추 천</a>
+    <li class="nav-item col-1">
+      <a class="nav-link active" aria-current="page" href="#" id="recom" style="text-align: center;">추 천</a>
     </li>
-    <li class="nav-item col-sm-1">
-      <a class="nav-link" href="#" style="text-align: center;">모 집</a>
+    <li class="nav-item col-1">
+      <a class="nav-link" href="#" id="recruit" style="text-align: center;">모 집</a>
     </li>
-    <li class="nav-item col-sm-1">
-      <a class="nav-link" href="#" style="text-align: center;">진 행</a>
+    <li class="nav-item col-1">
+      <a class="nav-link" href="#" id="doing" style="text-align: center;">진 행</a>
     </li>
-    <li class="nav-item col-sm-1">
-      <a class="nav-link" href="#" style="text-align: center;">완 료</a>
+    <li class="nav-item col-1">
+      <a class="nav-link" href="#" id="done" style="text-align: center;">완 료</a>
     </li>
-    <li class="nav-item col-sm-3">
+    <li class="nav-item col-3">
       <a class="nav-link disabled" style="text-align: center;"> </a>
     </li>
-    <li class="nav-item col-sm-1">
-      <a class="nav-link" href="#" style="text-align: center;">공지사항</a>
+    <li class="nav-item col-1">
+      <a class="nav-link" href="#" id="notice" style="text-align: center;">공지사항</a>
     </li>
-    <li class="nav-item col-sm-2">
+    <li class="nav-item col-2">
       <a class="nav-link disabled" style="text-align: center;"> </a>
     </li>
   </ul>
