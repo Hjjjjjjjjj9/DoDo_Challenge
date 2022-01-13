@@ -15,17 +15,17 @@
 </head>
 
 <%@ include file="header.jsp" %>
+
 <div class="row"> 
   <div class="col-2" style="background-color: lavender;"></div>
   <div class="col-8">
-    <%@ include file="challenge/clist.jsp" %>
+    <%@ include file="challenge/clist.jsp" %> 
+<%--<%@ include file="challenge/cdetail.jsp" %> --%>
   </div>
   <div class="col-2" style="background-color: lavender;"></div>
 </div>
-<div class="container-fluid">
-	<%@ include file="footer.jsp" %>
-</div>
 
+<%@ include file="footer.jsp" %>
 
 
 </body>

@@ -18,8 +18,8 @@
 <nav class="navbar navbar-light">
   <div class="container-fluid">
     <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <button class="btn btn-outline-success" type="submit">🔍</button>
+      <input class="form-control me-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
     </form>
   </div>
 </nav>
@@ -27,7 +27,7 @@
 <!-- 카테고리 버튼 -->
 <div class="row">
   <div class="col-5">
-  	&nbsp;
+    <span>&nbsp;&nbsp;&nbsp;</span>
 	<button type="button" class="btn btn-secondary">운동</button>
 	<button type="button" class="btn btn-secondary">공부</button>
 	<button type="button" class="btn btn-dark">생활</button>
@@ -37,28 +37,28 @@
 
 <!-- 글 목록 -->
 <br>
-<div class="row row-cols-4">
+<div class="row justify-content-center row-cols-5">
   <div class="card" style=" height: 15rem;" >
     <img src="resources/image/water.jpg" class="card-img-top" height="150px">
     <div class="card-body">
       <p class="card-text">물 많이 마시고 싶은 사람 모여라~~</p>
     </div>
   </div>
-  &nbsp;
+  &nbsp;&nbsp; 
   <div class="card" style=" height: 15rem;">
     <img src="resources/image/morning.jpg" class="card-img-top" height="150px">
     <div class="card-body">
       <p class="card-text">미라클 모닝 함께하실 분....</p>
     </div>
   </div>
-  &nbsp;
+  &nbsp;&nbsp;
   <div class="card" style=" height: 15rem; ">
     <img src="resources/image/jump.jpg" class="card-img-top" height="150px">
     <div class="card-body">
       <p class="card-text">하루에 줄넘기 1000개 도전해봐요!</p>
     </div>
   </div>
-  &nbsp;
+  &nbsp;&nbsp;
   <div class="card" style=" height: 15rem;">
     <img src="resources/image/word.jpg" class="card-img-top" height="150px">
     <div class="card-body">
