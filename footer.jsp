@@ -13,8 +13,17 @@
 </head>
 
 <body>
-<div class="text-center row" style="background-color: beige; height: 5rem">
-	<span>❣ 3조. 같이해죠 ❣</span>
+<div class="container">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Github</a></li>
+    </ul>
+    <p class="text-center text-muted">너Do나Do &copy; 2022 Team 같이하조 </p>
+  </footer>
 </div>
 </body>
 </html>
