@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapperInterface.ChallengeMapper">
+
+	<select id="selectList" resultType="vo.ChallengeVO">
+		select * from d_challenge order by sdate asc
+	</select>
+	
+	<select id="selectOne" resultType="vo.ChallengeVO">
+		select * from d_challenge where seq=#{seq}
+	</select>
+
+	<insert id="insert">
+		<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+			select nvl(max(seq),0)+1 from d_challenge
+		</selectKey>
+ 		insert into d_challenge (seq,title,id,category,sdate,term,content,thumbnail) 
+ 		values(#{seq},#{title},#{id},#{category},#{sdate},#{term},#{content},#{thumbnail})
+ 	</insert>
+	
+	<update id="update">
+		update d_challenge set title=#{title}, category=#{category}, sdate=#{sdate}, 
+								term=#{term}, content=#{content}, thumbnail=#{thumbnail} 
+							where seq=#{seq}
+	</update>
+	
+	<delete id="delete">
+		delete from d_challenge where seq=#{seq}
+	</delete>
+	
+	<sql id="searchCat">
+		<if test="check != null">
+			<bind name="keyVal" value="check"/>
+		</if>
+		<choose>
+			<when test="check=='A'.toString()">
+				where category = #{keyVal}
+			</when>
+			<when test="check=='B'.toString()">
+  				where category = #{keyVal}
+	  		</when>
+		  	<when test="check=='C'.toString()">
+		  		where category = #{keyVal}
+		  	</when>
+		  	<when test="check=='D'.toString()">
+		  		where category = #{keyVal}
+		  	</when>
+		</choose>
+	</sql>
+	
+	<select id="checkCategory" resultType="vo.ChallengeVO">
+		select * from d_challenge
+		<include refid="searchCat"></include>
+	</select>
+	
+	<select id="checkTitle" resultType="vo.ChallengeVO">
+		select * from d_challenge
+		<if test="check != null">
+			<bind name="keyVal" value="'%'+check+'%'"/>
+			where title like #{keyVal}
+		</if>
+	</select>
+	
+	<update id="countUp">
+		update d_challenge set cnt=cnt+1 where seq=#{seq}
+	</update>
+	
+</mapper>

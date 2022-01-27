@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="mapperInterface.MemberMapper">
+ 
+ 	<select id="selectOne" resultType="vo.MemberVO">
+		select * from d_member where id = #{id}
+	</select>
+ 	
+ 	<sql id="ridCheck">
+ 		<if test="#{rid} != null">
+ 			#{rid}
+ 		</if>
+ 		<if test="#{rid} == null">
+ 			'none'
+ 		</if>
+ 	</sql>
+ 	
+ 	<insert id="insert">
+ 		insert into d_member (id,password,name,mail,nick,rid,prefer) 
+ 		values(#{id},#{password},#{name},#{mail},#{nick},
+ 		<include refid="ridCheck"></include>
+		,#{prefer})
+ 	</insert>
+	
+	<update id="update">
+		update d_member set password=#{password}, name=#{name}, mail=#{mail}, 
+		nick=#{nick},prefer=#{prefer} where id=#{id}
+	</update>
+	
+	<update id="pwUpdate">
+		update d_member set password=#{password} where tmpPassword=#{tmpPassword}
+	</update>
+	
+	<update id="tmpDelete">
+		update d_member set tmpPassword=null where password=#{password}
+	</update>
+	
+	<delete id="delete">
+		delete from d_member where id=#{inputName_1}
+	</delete>
+	
+	<select id="findID" resultType="vo.MemberVO">
+		select * from d_member where name=#{name} and mail=#{mail}
+	</select>
+	
+	<select id="findPW" resultType="vo.MemberVO">
+		select * from d_member where id=#{id} and mail=#{mail}
+	</select>
+	
+	<update id="setPassword">
+		update d_member set tmpPassword=#{tmpPassword} where id=#{id} and mail=#{mail}
+	</update>
+	
+</mapper>
