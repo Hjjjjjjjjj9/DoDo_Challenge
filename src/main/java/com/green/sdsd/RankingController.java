@@ -21,7 +21,7 @@ import vo.RankingVO;
 public class RankingController {
 	@Autowired
 	RankingService service;
-
+   
 	
 	@RequestMapping(value = "/ranklist")
 	public ModelAndView ranklist(ModelAndView mv) {
