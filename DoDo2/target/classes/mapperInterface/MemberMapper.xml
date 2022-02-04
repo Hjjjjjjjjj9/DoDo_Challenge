@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="mapperInterface.MemberMapper">
+
+ 	<select id="selectOne" resultType="vo.MemberVO">
+		SELECT * FROM d_member WHERE id = #{id}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO d_member(id, password, name, mail, nick, prefer, rid) 
+		VALUES(#{id}, #{password}, #{name}, #{mail}, #{nick}, #{prefer}, #{rid})
+	</insert>
+	
+	<delete id="delete">
+	    DELETE FROM d_member WHERE id=#{id}
+	</delete>
+	
+	<update id="update">
+		UPDATE d_member SET password=#{password}, name=#{name}, 
+		mail=#{mail}, nick=#{nick} 
+		WHERE id=#{id}
+	</update>
+ 
+</mapper>
