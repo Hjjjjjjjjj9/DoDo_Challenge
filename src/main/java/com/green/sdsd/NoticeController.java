@@ -20,7 +20,7 @@ public class NoticeController {
 	
 	@Autowired
 	NoticeService service;
-     
+       
 	
 	// ** Notice PageList 1.
 		@RequestMapping(value = "/npagelist")
