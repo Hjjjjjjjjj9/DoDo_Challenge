@@ -37,16 +37,18 @@
     <tr>
       <th>작성자</th>
         <td><input name="id" type="text" size="20" readonly="readonly" value="${nickName}"></td>
+        <td><input name="loginID" type="text" value="${loginID}" hidden="hidden"></td>
     </tr>
-    <tr height="40"><td bgcolor="Thistle">카테고리</td>
-	  <td><select name="category" id="category">
-			<option value="-" selected >----</option>
-			<option value="A" >공부</option>
-			<option value="B" >운동</option>
-			<option value="C" >생활</option>
-			<option value="D" >취미</option>
-		  </select>
-	  </td>
+    <tr>
+      <th>카테고리</th>
+	    <td><select name="category" id="category">
+		  	  <option value="-" selected >----</option>
+			  <option value="A" >공부</option>
+			  <option value="B" >운동</option>
+			  <option value="C" >생활</option>
+			  <option value="D" >취미</option>
+		    </select>
+	    </td>
 	  <td><span id="cMessage" class="cMessage"></span></td>
 	</tr>
     <tr>

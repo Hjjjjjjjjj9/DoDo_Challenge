@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import mapperInterface.ChallengeMapper;
 import vo.ChallengeVO;
+import vo.ReplyVO;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
@@ -46,6 +47,25 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public List<ChallengeVO> checkTitle(ChallengeVO vo) {
 		return dao.checkTitle(vo);
 	}
-
+	@Override
+	public List<ChallengeVO> checkState(ChallengeVO vo) {
+		return dao.checkState(vo);
+	}
+	@Override
+	public int participate(ChallengeVO vo) {
+		return dao.participate(vo);
+	}
+	@Override
+	public ChallengeVO checkParticipate(ChallengeVO vo) {
+		return dao.checkParticipate(vo);
+	}
+	@Override
+	public int rinsert(ReplyVO vo) {
+		return dao.rinsert(vo);
+	}
+	@Override
+	public List<ReplyVO> rList() {
+		return dao.rList();
+	}
 	
 } //class

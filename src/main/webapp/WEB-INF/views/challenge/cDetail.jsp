@@ -13,8 +13,8 @@
 
 <%@ include file="../header.jsp" %>
 <div class="row" > 
-  <div class="col-2" style="background-color: lavender;"></div>
-  <div id="mainArea" class="col-8" >
+<div class="col-2" style="background-color: lavender;"></div>
+<div id="mainArea" class="col-8" >
 <br>
 <div>
   <p>챌린지 상세보기</p>
@@ -36,7 +36,10 @@
       <tr>
         <td colspan="3" style="text-align: center;">
           <img src="${apple.thumbnail}" width="200"></td>
-        <td colspan="2" rowspan="2" style="text-align: center; ">출석 Div</td>
+        <td colspan="2" rowspan="2" style="text-align: center; ">
+          <a href="participate?seq=${apple.seq}&term=${apple.term}" 
+          		class="btn btn-secondary btn-sm">참여하기</a>
+        </td>
       </tr>
       <tr>
 		<td style="text-align: center;">
@@ -58,23 +61,52 @@
 <!-- 댓글 table -->
 <div class="row">
   <div>
-    <table class="table" style="width: 70%; background: Gainsboro; ">
+    <form action="rinsert" method="get">
+    <table class="table" style="width: 70%; background: Gainsboro; " border="1">
       <tr>
-        <td rowspan="2" ></td>
-        <td width="30%" >닉네임~~</td>
-        <td width="40%">작성 날짜</td>
-        <td style="text-align: right;"><input type="button" value="신고"> </td>
+        <td colspan="2"></td>
+        <td colspan="2">
+          <input type="text" name="content" placeholder="댓글 내용을 입력하세요" size="70"></td> 
+        <td colspan="2">  
+          <input type="text" name="id" hidden="hidden" value="${nickName}"></td> 
+        <td colspan="2">  
+          <input type="text" name="seq" hidden="hidden" value="${apple.seq}"></td> 
+        <td style="text-align: center;">
+          <input type="submit" value="입력"> </td> 
       </tr>
-      <tr>
-        <td>댓글 내용~~</td>
-      </tr>
+    </table>
+    </form>
+  </div>
+    
+  <div>
+    <table class="table" style="width: 70%; background: Gainsboro; " border="1">
+      <c:forEach var="list" items="${cherry}">
+        <tr>
+          <td rowspan="2"></td>
+          <td width="10%" rowspan="2">${list.id}</td>
+        </tr>
+        <tr>
+          <td width="40%" colspan="2">${list.content}</td>
+          <td style="text-align: center;">
+            <input type="button" value="신고하기"> </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td width="30%">${list.regdate}</td>
+        </tr>
+      </c:forEach>
     </table>
   </div>
 </div>
+
 </div>
 
 <div class="col-2" style="background-color: lavender;"></div>
 </div>
+
+<c:if test="${not empty message}">
+  <span>${message}</span>
+</c:if>
 
 <div class="row container-fluid" style="height: 10rem; position: absolute; background: snow; ">
   <%@ include file="../footer.jsp" %>

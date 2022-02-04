@@ -4,11 +4,27 @@
 <mapper namespace="mapperInterface.ChallengeMapper">
 
 	<select id="selectList" resultType="vo.ChallengeVO">
-		select * from d_challenge order by sdate asc
+		select * from d_challenge order by seq desc
 	</select>
 	
 	<select id="selectOne" resultType="vo.ChallengeVO">
 		select * from d_challenge where seq=#{seq}
+	</select>
+	
+	<select id="checkDate">
+		select * from d_challenge where sdate > #{currentTime}
+	</select>
+	
+	<select id="selectRecruit">
+		select * from d_challenge where sdate > #{currentTime}
+	</select>
+	
+	<select id="selectDoing">
+	
+	</select>
+	
+	<select id="selectDone">
+	
 	</select>
 
 	<insert id="insert">
@@ -51,7 +67,7 @@
 	
 	<select id="checkCategory" resultType="vo.ChallengeVO">
 		select * from d_challenge
-		<include refid="searchCat"></include>
+		<include refid="searchCat" />
 	</select>
 	
 	<select id="checkTitle" resultType="vo.ChallengeVO">
@@ -61,6 +77,49 @@
 			where title like #{keyVal}
 		</if>
 	</select>
+	
+	<select id="checkState" resultType="vo.ChallengeVO">
+		select * from d_challenge
+		<include refid="searchState" />
+	</select>
+	
+	<sql id="searchState">
+		<if test="check != null">
+			<bind name="keyVal" value="check"/>
+		</if>
+		<choose>
+			<when test="check=='recruit'.toString()">
+				where state = #{keyVal}
+			</when>
+			<when test="check=='doing'">
+  				where state = #{keyVal}
+	  		</when>
+		  	<when test="check=='done'">
+		  		where state = #{keyVal}
+		  	</when>
+		  	<otherwise></otherwise>
+		</choose>
+	</sql>
+	
+	<select id="checkParticipate" resultType="vo.ChallengeVO">
+		select * from piledata where cno=#{seq} and entry=#{loginID}
+	</select>
+	
+	<insert id="participate">
+		insert into piledata (cno, entry, term) values (#{seq}, #{loginID}, #{term})
+	</insert>
+	
+	<insert id="rinsert">
+		<selectKey keyProperty="step" resultType="int" order="BEFORE">
+			select nvl(max(step),0)+1 from reply where seq=#{seq}
+		</selectKey>
+ 		insert into reply (seq,step,id,content) 
+ 		values(#{seq},#{step},#{id},#{content})
+ 	</insert>
+ 	
+ 	<select id="rList" resultType="vo.ReplyVO">
+ 	  select * from reply where seq=#{seq} order by step
+ 	</select>
 	
 	<update id="countUp">
 		update d_challenge set cnt=cnt+1 where seq=#{seq}

@@ -23,4 +23,6 @@ public class ChallengeVO {
 	// MultipartFile (Interface) -> CommonsMultipartFile
 	
 	private String check;
+	
+	private String loginID;
 }

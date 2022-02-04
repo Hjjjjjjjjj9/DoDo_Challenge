@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import service.ChallengeService;
 import vo.ChallengeVO;
-
+import vo.ReplyVO;
 
 @Controller
 public class ChallengeController {
-	
+
 	@Autowired
 	ChallengeService service;
 
@@ -29,229 +30,271 @@ public class ChallengeController {
 		mv.setViewName("challenge/cinsertForm");
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/cinsert")
-	public ModelAndView nlist(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr) 
+	public ModelAndView nlist(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr)
 			throws IOException {
 		String uri = "redirect:clist";
-		
+
 		String realPath = request.getRealPath("/"); // deprecated Method
-		System.out.println("** realPath => "+realPath);
-		
+		System.out.println("** realPath => " + realPath);
+
 		if (realPath.contains(".eclipse."))
-			 realPath = "C:/MTest/HJWork/DoDo/src/main/webapp/resources/image/";
-		// realPath = "D:/MTest/HJWork/DoDo/src/main/webapp/resources/uploadImage/"+vo.getId()+"/";
-		else realPath += "resources\\image\\";
-		
+			realPath = "C:/MTest/HJWork/DoDo/src/main/webapp/resources/image/";
+		// realPath = "D:/MTest/HJWork/DoDo/src/main/webapp/resources/image/";
+		// realPath =
+		// "D:/MTest/HJWork/DoDo/src/main/webapp/resources/uploadImage/"+vo.getId()+"/";
+		else
+			realPath += "resources\\image\\";
+
 		File f1 = new File(realPath);
-		if ( !f1.exists() ) 
+		if (!f1.exists())
 			f1.mkdir();
-		
-		String file1, file2="resources/image/basic.jpg";
-		
+
+		String file1, file2 = "resources/image/basic.jpg";
+
 		MultipartFile uploadfilef = vo.getThumbnailf();
-		if ( uploadfilef !=null && !uploadfilef.isEmpty() ) {
-			file1=realPath + uploadfilef.getOriginalFilename();
+		if (uploadfilef != null && !uploadfilef.isEmpty()) {
+			file1 = realPath + uploadfilef.getOriginalFilename();
 			uploadfilef.transferTo(new File(file1));
-			file2 = "resources/image/"+ uploadfilef.getOriginalFilename();
+			file2 = "resources/image/" + uploadfilef.getOriginalFilename();
 		}
 		vo.setThumbnail(file2);
-		
-		if ( service.insert(vo) > 0 ) { 
-    		rttr.addFlashAttribute("message", "※ 새글 등록 완료 ※");
-    	}else {
-    		mv.addObject("message", "※ 새글 등록 실패 ※");
-    		uri = "challenge/cinsertForm";
-    	}
+
+		if (service.insert(vo) > 0) {
+			service.participate(vo);
+			rttr.addFlashAttribute("message", "※ 새글 등록 완료 ※");
+		} else {
+			mv.addObject("message", "※ 새글 등록 실패 ※");
+			uri = "challenge/cinsertForm";
+		}
 		mv.setViewName(uri);
 		return mv;
-	} //cinsert
-	
+	} // cinsert
+
 	@RequestMapping(value = "/clist")
 	public ModelAndView nlist(ModelAndView mv) {
 		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
-    	list = service.selectList();
-    	if ( list!=null && list.size() > 0) 
-    		 mv.addObject("banana", list);
-    	else mv.addObject("message", "※ 출력 자료가 없습니다 ※");
-		
-    	mv.setViewName("challenge/cList");
+		list = service.selectList();
+		if (list != null && list.size() > 0)
+			mv.addObject("banana", list);
+		else
+			mv.addObject("message", "※ 출력 자료가 없습니다 ※");
+
+		mv.setViewName("challenge/cList");
 		return mv;
-	} //clist
-	
+	} // clist
+
 	@RequestMapping(value = "/cdetail")
-	public ModelAndView bdetail(HttpServletRequest request, ModelAndView mv, ChallengeVO vo) {
+	public ModelAndView bdetail(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, ReplyVO rvo) {
 		String uri = "challenge/cDetail";
 		vo = service.selectOne(vo);
-		if ( vo != null ) {
-			if ( "U".equals(request.getParameter("jcode")) ) 
-    			uri = "challenge/cupdateForm";
+		if (vo != null) {
+			if ("U".equals(request.getParameter("jcode")))
+				uri = "challenge/cupdateForm";
 			mv.addObject("apple", vo);
-		}else {
+			/*
+			 * List<ReplyVO> list = new ArrayList<ReplyVO>(); int seq = vo.getSeq();
+			 * rvo.setSeq(Integer.parseInt(request.getParameter("seq"))); list =
+			 * service.rList(); if ( list!=null && list.size() > 0) mv.addObject("cherry",
+			 * list); else mv.addObject("message", "※ 댓글이 아직 없습니다 ※");
+			 */
+		} else {
 			mv.addObject("message", "※ 글번호에 해당하는 자료가 없습니다 ※");
 		}
 		mv.setViewName(uri);
 		return mv;
-	} //cdetail
-	
+	} // cdetail
+
 	@RequestMapping(value = "/checkTitle")
 	public ModelAndView checkTitle(ModelAndView mv, ChallengeVO vo) {
 		List<ChallengeVO> list = null;
-		if ( vo.getCheck() != null ) 
-			list = service.checkTitle(vo) ;
-		else 
+		if (vo.getCheck() != null)
+			list = service.checkTitle(vo);
+		else
 			list = service.selectList();
-		
-		if ( list != null && list.size()>0 ) mv.addObject("banana", list);
-		else mv.addObject("message", "※ 출력할 자료가 1건도 없습니다 ※");
-		
+
+		if (list != null && list.size() > 0)
+			mv.addObject("banana", list);
+		else
+			mv.addObject("message", "※ 출력할 자료가 1건도 없습니다 ※");
+
 		mv.setViewName("challenge/cList");
 		return mv;
-	} //checkTitle
-	
+	} // checkTitle
+
 	@RequestMapping(value = "/checkCategory")
 	public ModelAndView checkCategory(ModelAndView mv, ChallengeVO vo) {
 		List<ChallengeVO> list = null;
-		if ( vo.getCheck() != null ) 
-			list = service.checkCategory(vo) ;
-		else 
+		if (vo.getCheck() != null)
+			list = service.checkCategory(vo);
+		else
 			list = service.selectList();
-		
-		if ( list != null && list.size()>0 ) mv.addObject("banana", list);
-		else mv.addObject("message", "※ 출력할 자료가 1건도 없습니다 ※");
-		
+
+		if (list != null && list.size() > 0)
+			mv.addObject("banana", list);
+		else
+			mv.addObject("message", "※ 출력할 자료가 1건도 없습니다 ※");
+
 		mv.setViewName("challenge/cList");
 		return mv;
-	} //checkCategory
-	
+	} // checkCategory
+
+	@RequestMapping(value = "/checkState")
+	public ModelAndView checkState(ModelAndView mv, ChallengeVO vo) {
+		List<ChallengeVO> list = null;
+		if (vo.getCheck() != null)
+			list = service.checkState(vo);
+		else
+			list = service.selectList();
+		if (list != null && list.size() > 0)
+			mv.addObject("banana", list);
+		else
+			mv.addObject("message", "※ 출력할 자료가 1건도 없습니다 ※");
+
+		mv.setViewName("challenge/cList");
+		return mv;
+	} // checkCategory
+
 	@RequestMapping(value = "/cupdate")
-	public ModelAndView bupdate(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr) 
-	throws IOException {
+	public ModelAndView bupdate(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr)
+			throws IOException {
 		String uri = "challenge/cList";
 		MultipartFile uploadfilef = vo.getThumbnailf();
 		String file1, file2;
-		if ( uploadfilef != null && !uploadfilef.isEmpty() ) {
+		if (uploadfilef != null && !uploadfilef.isEmpty()) {
 			String realPath = request.getRealPath("/");
 			if (realPath.contains(".eclipse."))
 				realPath = "C:/MTest/HJWork/DoDo/src/main/webapp/resources/image/";
-			// realPath = "D:/MTest/HJWork/DoDo/src/main/webapp/resources/uploadImage/"+vo.getId()+"/";
-			else realPath += "resources\\image\\"; // 배포환경
+			// realPath = "D:/MTest/HJWork/DoDo/src/main/webapp/resources/image/";
+			else
+				realPath += "resources\\image\\";
 			File f1 = new File(realPath);
-			if ( !f1.exists() ) f1.mkdir();
+			if (!f1.exists())
+				f1.mkdir();
 			file1 = realPath + uploadfilef.getOriginalFilename();
 			uploadfilef.transferTo(new File(file1));
 			file2 = "resources/image/" + uploadfilef.getOriginalFilename();
 			vo.setThumbnail(file2);
 		}
-		
-		if ( service.update(vo) > 0 ) { 
-    		rttr.addFlashAttribute("message", "※ 글수정 성공 ※");
-    	}else {
-    		rttr.addFlashAttribute("message", "※ 글수정 실패 ※");
-    		uri = "redirect:cdetail?jcode=U&seq="+vo.getSeq();
-    	}
+		if (service.update(vo) > 0) {
+			rttr.addFlashAttribute("message", "※ 글수정 성공 ※");
+		} else {
+			rttr.addFlashAttribute("message", "※ 글수정 실패 ※");
+			uri = "redirect:cdetail?jcode=U&seq=" + vo.getSeq();
+		}
 		mv.setViewName(uri);
 		return mv;
-	} //cupdate
-	
-	@RequestMapping(value = "/cdelete")
-	public ModelAndView bdelete(HttpServletRequest request ,ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr) {
-		String uri = "redirect:clist";
-		if ( service.delete(vo) > 0 ) { 
-			rttr.addFlashAttribute("message", "※ 글삭제 성공 ※");
-    	}else {
-    		rttr.addFlashAttribute("message", "※ 글삭제 실패 ※");
-    		uri = "redirect:cdetail?seq="+vo.getSeq();
-    	}
-		mv.setViewName(uri);
-		return mv;
-	} //cdelete	
-	
-	
-/*		
-	@RequestMapping(value = "/nlist")
-	public ModelAndView nlist(ModelAndView mv) {
-		List<NoticeVO> list = new ArrayList<NoticeVO>();
-    	list = service.selectList();
-    	if ( list!=null && list.size()>0) 
-    		 mv.addObject("banana", list);
-    	else mv.addObject("message", "※ 출력 자료가 없습니다 ※");
-		
-    	mv.setViewName("board/notice");
-		return mv;
-	} //nlist
+	} // cupdate
 
-	@RequestMapping(value = "/ndetail")
-	public ModelAndView ndetail(HttpServletRequest request, ModelAndView mv, NoticeVO vo) {
-		String uri = "board/nDetail";
-		vo = service.selectOne(vo);
-    	if ( vo!=null ) {
-    		String loginID = (String)request.getSession().getAttribute("loginID") ;
-    		if ( !vo.getId().equals(loginID) &&    
-    			 !"U".equals(request.getParameter("jcode")) ) {
-    			if ( service.countUp(vo) > 0 )
-    					vo.setCnt(vo.getCnt()+1) ;
-    		}
-    		mv.addObject("apple", vo);
-    		if ( "U".equals(request.getParameter("jcode")) ) 
-    			uri = "board/bupdateForm";
-    	}else {
-    		mv.addObject("message", "※ 글번호에 해당하는 자료가 없습니다 ※");
-    	}
+	@RequestMapping(value = "/cdelete")
+	public ModelAndView bdelete(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr) {
+		String uri = "redirect:clist";
+		if (service.delete(vo) > 0) {
+			rttr.addFlashAttribute("message", "※ 글삭제 성공 ※");
+		} else {
+			rttr.addFlashAttribute("message", "※ 글삭제 실패 ※");
+			uri = "redirect:cdetail?seq=" + vo.getSeq();
+		}
 		mv.setViewName(uri);
 		return mv;
-	} //ndetail
-	
-	@RequestMapping(value = "/binsertf")
-	public ModelAndView binsertf(ModelAndView mv) {
-		mv.setViewName("board/binsertForm");
-		return mv;
-	} //binsertf
-	
-	@RequestMapping(value = "/binsert")
-	public ModelAndView binsert(ModelAndView mv, BoardVO vo, RedirectAttributes rttr) {
-		
-		String uri = "redirect:blist";
-		if ( service.insert(vo) > 0 ) { 
-    		// 글등록 성공 -> blist , redirect
-    		rttr.addFlashAttribute("message", "~~ 새글 등록 완료 !!! ~~");
-    	}else {
-    		mv.addObject("message", "~~ 새글 등록 실패 !!! ~~");
-    		uri = "board/binsertForm";
-    	}
+	} // cdelete
+
+	@RequestMapping(value = "/participate")
+	public ModelAndView patricipate(ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr, HttpSession session) {
+		String uri = "redirect:cdetail?seq=" + vo.getSeq();
+		vo.setLoginID((String) session.getAttribute("loginID"));
+		if (service.checkParticipate(vo) != null) {
+			rttr.addFlashAttribute("message", "※ 해당 챌린지에 이미 참여하셨습니다 ※");
+		} else {
+			if (service.participate(vo) > 0) {
+				rttr.addFlashAttribute("message", "※ 챌린지 참여 완료 ※");
+			} else {
+				mv.addObject("message", "※ 챌린지 참여 실패 ※");
+				uri = "challenge/cList";
+			}
+		}
 		mv.setViewName(uri);
 		return mv;
-	} //binsert
-	
-	@RequestMapping(value = "/bupdate")
-	public ModelAndView bupdate(ModelAndView mv, BoardVO vo, RedirectAttributes rttr) {
-		
-		String uri = "redirect:blist";
-		if ( service.update(vo) > 0 ) { 
-    		// 글수정 성공 -> blist : redirect
-    		rttr.addFlashAttribute("message", "~~ 글수정 성공 !!! ~~");
-    	}else {
-    		rttr.addFlashAttribute("message", "~~ 글수정 실패 !!! 다시 하세요 ~~");
-    		uri = "redirect:bdetail?jcode=U&seq="+vo.getSeq();
-    	}
+	} // participate
+
+	@RequestMapping(value = "/rinsert")
+	public ModelAndView rinsert(ModelAndView mv, ReplyVO vo, RedirectAttributes rttr) {
+
+		String uri = "redirect:cdetail?seq=" + vo.getSeq();
+		vo.setStep(vo.getStep() + 1);
+
+		if (service.rinsert(vo) > 0) {
+			rttr.addFlashAttribute("message", "※ 댓글 입력 성공 ※");
+		} else {
+			vo.setStep(vo.getStep() - 1);
+			mv.addObject("message", "※ 댓글 입력 실패 ※");
+		}
 		mv.setViewName(uri);
 		return mv;
-	} //bupdate
-	
-	@RequestMapping(value = "/bdelete")
-	public ModelAndView bdelete(ModelAndView mv, BoardVO vo, RedirectAttributes rttr) {
-		
-		String uri = "redirect:blist";
-		if ( service.delete(vo) > 0 ) { 
-    		// 글삭제 성공 -> blist  : redirect
-			rttr.addFlashAttribute("message", "~~ 글삭제 성공 !!! ~~");
-    	}else {
-    		rttr.addFlashAttribute("message", "~~ 글삭제 실패 !!! ~~");
-    		uri = "redirect:bdetail?seq="+vo.getSeq();
-    	}
-		mv.setViewName(uri);
+	} // rinsert
+
+	@RequestMapping(value = "/rlist")
+	public ModelAndView rlist(ModelAndView mv) {
+		List<ReplyVO> list = new ArrayList<ReplyVO>();
+		list = service.rList();
+		if (list != null && list.size() > 0)
+			mv.addObject("cherry", list);
+		else
+			mv.addObject("message", "※ 댓글이 아직 없습니다 ※");
+
+		mv.setViewName("challenge/cList");
 		return mv;
-	} //bdelete	
-*/
-	
-} //class
+	} // clist
+
+	/*
+	 * @RequestMapping(value = "/nlist") public ModelAndView nlist(ModelAndView mv)
+	 * { List<NoticeVO> list = new ArrayList<NoticeVO>(); list =
+	 * service.selectList(); if ( list!=null && list.size()>0)
+	 * mv.addObject("banana", list); else mv.addObject("message",
+	 * "※ 출력 자료가 없습니다 ※");
+	 * 
+	 * mv.setViewName("board/notice"); return mv; } //nlist
+	 * 
+	 * @RequestMapping(value = "/ndetail") public ModelAndView
+	 * ndetail(HttpServletRequest request, ModelAndView mv, NoticeVO vo) { String
+	 * uri = "board/nDetail"; vo = service.selectOne(vo); if ( vo!=null ) { String
+	 * loginID = (String)request.getSession().getAttribute("loginID") ; if (
+	 * !vo.getId().equals(loginID) && !"U".equals(request.getParameter("jcode")) ) {
+	 * if ( service.countUp(vo) > 0 ) vo.setCnt(vo.getCnt()+1) ; }
+	 * mv.addObject("apple", vo); if ( "U".equals(request.getParameter("jcode")) )
+	 * uri = "board/bupdateForm"; }else { mv.addObject("message",
+	 * "※ 글번호에 해당하는 자료가 없습니다 ※"); } mv.setViewName(uri); return mv; } //ndetail
+	 * 
+	 * @RequestMapping(value = "/binsertf") public ModelAndView
+	 * binsertf(ModelAndView mv) { mv.setViewName("board/binsertForm"); return mv; }
+	 * //binsertf
+	 * 
+	 * @RequestMapping(value = "/binsert") public ModelAndView binsert(ModelAndView
+	 * mv, BoardVO vo, RedirectAttributes rttr) {
+	 * 
+	 * String uri = "redirect:blist"; if ( service.insert(vo) > 0 ) { // 글등록 성공 ->
+	 * blist , redirect rttr.addFlashAttribute("message", "~~ 새글 등록 완료 !!! ~~");
+	 * }else { mv.addObject("message", "~~ 새글 등록 실패 !!! ~~"); uri =
+	 * "board/binsertForm"; } mv.setViewName(uri); return mv; } //binsert
+	 * 
+	 * @RequestMapping(value = "/bupdate") public ModelAndView bupdate(ModelAndView
+	 * mv, BoardVO vo, RedirectAttributes rttr) {
+	 * 
+	 * String uri = "redirect:blist"; if ( service.update(vo) > 0 ) { // 글수정 성공 ->
+	 * blist : redirect rttr.addFlashAttribute("message", "~~ 글수정 성공 !!! ~~"); }else
+	 * { rttr.addFlashAttribute("message", "~~ 글수정 실패 !!! 다시 하세요 ~~"); uri =
+	 * "redirect:bdetail?jcode=U&seq="+vo.getSeq(); } mv.setViewName(uri); return
+	 * mv; } //bupdate
+	 * 
+	 * @RequestMapping(value = "/bdelete") public ModelAndView bdelete(ModelAndView
+	 * mv, BoardVO vo, RedirectAttributes rttr) {
+	 * 
+	 * String uri = "redirect:blist"; if ( service.delete(vo) > 0 ) { // 글삭제 성공 ->
+	 * blist : redirect rttr.addFlashAttribute("message", "~~ 글삭제 성공 !!! ~~"); }else
+	 * { rttr.addFlashAttribute("message", "~~ 글삭제 실패 !!! ~~"); uri =
+	 * "redirect:bdetail?seq="+vo.getSeq(); } mv.setViewName(uri); return mv; }
+	 * //bdelete
+	 */
+
+} // class

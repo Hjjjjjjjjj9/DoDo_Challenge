@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import vo.ChallengeVO;
+import vo.ReplyVO;
 
 public interface ChallengeService {
 	
@@ -17,4 +18,11 @@ public interface ChallengeService {
 	
 	List<ChallengeVO> checkCategory(ChallengeVO vo);
 	List<ChallengeVO> checkTitle(ChallengeVO vo);
+	List<ChallengeVO> checkState(ChallengeVO vo);
+	
+	int participate(ChallengeVO vo);
+	ChallengeVO checkParticipate(ChallengeVO vo);
+	
+	int rinsert(ReplyVO vo);
+	List<ReplyVO> rList();
 }

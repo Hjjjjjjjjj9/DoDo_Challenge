@@ -9,6 +9,7 @@
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>
 	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
+	<script src="resources/myLib/nullCheck.js"></script>
 </head>
 <body>
 
@@ -30,15 +31,26 @@
     <tr>
       <th rowspan="7" width="80"></th>
       <th>제 목</th>
-        <td><input name="title" type="text" value="${apple.title}" size="80"></td>
+        <td><input name="title" id="title" type="text" value="${apple.title}" size="80"></td>
     </tr>
     <tr>
       <th>작성자</th>
         <td><input name="id" type="text" size="20" readonly="readonly" value="${apple.id}"></td>
     </tr>
     <tr height="40"><td bgcolor="Thistle">카테고리</td>
+      <c:if test="${apple.category=='-'}">
+        <td><select name="category" id="category">
+			  <option value="-" selected>----</option>
+			  <option value="A">공부</option>
+			  <option value="B">운동</option>
+			  <option value="C">생활</option>
+			  <option value="D">취미</option>
+		    </select>
+	    </td>
+      </c:if>
+    
       <c:if test="${apple.category=='A'}">
-        <td><select name="category">
+        <td><select name="category" id="category">
 			  <option value="-">----</option>
 			  <option value="A" selected>공부</option>
 			  <option value="B">운동</option>
@@ -48,7 +60,7 @@
 	    </td>
       </c:if>
 	  <c:if test="${apple.category=='B'}">
-        <td><select name="category">
+        <td><select name="category" id="category">
 			  <option value="-">----</option>
 			  <option value="A">공부</option>
 			  <option value="B" selected>운동</option>
@@ -58,7 +70,7 @@
 	    </td>
       </c:if>
       <c:if test="${apple.category=='C'}">
-        <td><select name="category">
+        <td><select name="category" id="category">
 			  <option value="-">----</option>
 			  <option value="A">공부</option>
 			  <option value="B">운동</option>
@@ -68,7 +80,7 @@
 	    </td>
       </c:if>
       <c:if test="${apple.category=='D'}">
-        <td><select name="category">
+        <td><select name="category" id="category">
 			  <option value="-">----</option>
 			  <option value="A">공부</option>
 			  <option value="B">운동</option>
@@ -80,12 +92,12 @@
 	</tr>
     <tr>
       <th>시작날짜</th>
-        <td><input name="sdate" type="date" value="${apple.sdate}"></td>
+        <td><input name="sdate" id="sdate" type="date" value="${apple.sdate}"></td>
     </tr>
     <tr>
       <th>기 간</th>
         <c:if test="${apple.term==10}">
-          <td><input id="term_10" name="term" type="radio" value="10" checked>
+          <td><input id="term_10" class="termCheck" name="term" type="radio" value="10" checked>
         	    <label for="term_10">10일</label> &nbsp;&nbsp;
         	  <input id="term_15" name="term" type="radio" value="15">
         		<label for="term_15">15일</label> &nbsp;&nbsp;
@@ -96,7 +108,7 @@
           </td>
         </c:if>
         <c:if test="${apple.term==15}">
-          <td><input id="term_10" name="term" type="radio" value="10">
+          <td><input id="term_10" class="termCheck" name="term" type="radio" value="10">
         	    <label for="term_10">10일</label> &nbsp;&nbsp;
         	  <input id="term_15" name="term" type="radio" value="15" checked>
         		<label for="term_15">15일</label> &nbsp;&nbsp;
@@ -107,7 +119,7 @@
           </td>
         </c:if>
         <c:if test="${apple.term==30}">
-          <td><input id="term_10" name="term" type="radio" value="10">
+          <td><input id="term_10" class="termCheck" name="term" type="radio" value="10">
         	    <label for="term_10">10일</label> &nbsp;&nbsp;
         	  <input id="term_15" name="term" type="radio" value="15">
         		<label for="term_15">15일</label> &nbsp;&nbsp;
@@ -118,7 +130,7 @@
           </td>
         </c:if>
         <c:if test="${apple.term==60}">
-          <td><input id="term_10" name="term" type="radio" value="10">
+          <td><input id="term_10" class="termCheck" name="term" type="radio" value="10">
         	    <label for="term_10">10일</label> &nbsp;&nbsp;
         	  <input id="term_15" name="term" type="radio" value="15">
         		<label for="term_15">15일</label> &nbsp;&nbsp;
@@ -168,6 +180,10 @@
 
 <div class="col-2" style="background-color: lavender;"></div>
 </div>
+
+<c:if test="${not empty message}">
+  <span>${message}</span>
+</c:if>
 
 <div class="row container-fluid" style="height: 10rem; position: absolute; background: snow; ">
   <%@ include file="../footer.jsp" %>
