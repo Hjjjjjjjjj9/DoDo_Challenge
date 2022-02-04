@@ -91,7 +91,7 @@ public class AskController {
 			return mv;
 		} //ansinsert
 		
-       
+          
 	@RequestMapping(value = "/alist")
 	public ModelAndView alist(ModelAndView mv) {
 		

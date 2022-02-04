@@ -23,7 +23,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
+   
 <br>
 <div>
   <p>1:1문의 작성하기</p>

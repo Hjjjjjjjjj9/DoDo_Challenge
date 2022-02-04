@@ -24,7 +24,7 @@
   <h4>1:1 문의</h4>
 </div>
 <hr style="width: 95%; margin-left: auto;margin-right: auto;">
-
+   
 <!-- 상세보기 table -->
 <div class="row">
   <div style="width: 95%; margin-left: auto; margin-right: auto;">

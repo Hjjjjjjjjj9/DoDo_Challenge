@@ -18,7 +18,7 @@ public interface AskMapper {
 	int insert(AskVO vo); //insert
 	int update(AskVO vo); //update
 	int delete(AskVO vo); //delete
-	
+	  
 	// ** 답글입력
 	int ansinsert(AskVO vo);
 	
