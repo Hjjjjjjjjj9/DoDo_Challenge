@@ -2,6 +2,7 @@ package vo;
 
 import lombok.Data;
 
+
 // ** VO 작성
 // => private 변수 : Table의 컬럼명과 동일
 // => setter , getter , toString()

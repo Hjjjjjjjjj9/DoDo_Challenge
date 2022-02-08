@@ -13,6 +13,7 @@ import vo.PageVO;
 @Service
 public class AskServiceImpl implements AskService {
 	  
+
 	@Autowired
 	AskMapper dao;
 	

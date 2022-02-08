@@ -25,5 +25,7 @@ public interface NoticeService {
 	// ** 조회수증가
 	int countUp(NoticeVO vo); //countUp
 	
-
+    
+	
+	
 }

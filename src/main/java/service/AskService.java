@@ -8,6 +8,7 @@ import vo.PageVO;
 
 public interface AskService {
 
+	
 	// ** PageList1.
 	PageVO<AskVO> pageList(PageVO<AskVO> pvo); // pageList 1 
 	   

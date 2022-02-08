@@ -13,8 +13,7 @@ public class RankingServiceImpl implements RankingService {
 	
 	@Autowired
 	RankingMapper dao;
-	
-	
+
 	@Override
 	public List<RankingVO> selectList() {
 		return dao.selectList();

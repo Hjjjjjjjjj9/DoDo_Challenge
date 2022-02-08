@@ -9,7 +9,5 @@ public interface RankingService {
 	
 	List<RankingVO> selectList(); //selectList
 	
-	
-	
 
 }
