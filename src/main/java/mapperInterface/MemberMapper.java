@@ -1,6 +1,9 @@
 package mapperInterface;
 
+import java.util.List;
+
 import vo.MemberVO;
+import vo.PageVO;
 
 public interface MemberMapper {
 	
@@ -15,5 +18,9 @@ public interface MemberMapper {
 	int setPassword(MemberVO vo);
 	int pwUpdate(MemberVO vo);
 	int tmpDelete(MemberVO vo);
+	
+	List<MemberVO> pageList(PageVO<MemberVO> pvo);
+	List<MemberVO> selectList();
+	int totalRowCount();
 	
 } //interface

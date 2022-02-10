@@ -1,5 +1,7 @@
 package vo;
 
+import java.util.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -8,7 +10,7 @@ import lombok.Data;
 public class ChallengeVO {
 	private int seq;
 	private String title;
-	private String regdate;
+	private Date regdate;
 	private String id;
 	private String sdate;
 	private int term;

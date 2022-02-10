@@ -11,20 +11,32 @@
 		select * from d_challenge where seq=#{seq}
 	</select>
 	
-	<select id="checkDate">
-		select * from d_challenge where sdate > #{currentTime}
+	<select id="selectParticipate" resultType="vo.ChallengeVO">
+		select c.seq, c.title, c.regdate, c.id, c.sdate, 
+				c.term, c.content, c.thumbnail, c.category
+    	from d_challenge c inner join piledata p 
+    	on(c.seq = p.cno) where p.entry = #{loginID}
 	</select>
 	
-	<select id="selectRecruit">
-		select * from d_challenge where sdate > #{currentTime}
+	<!--   <  &lt; 
+		   >  &gt;   -->
+		   
+	<select id="selectRecruit" resultType="vo.ChallengeVO">
+		select * from d_challenge 
+			where TO_CHAR(sysdate, 'YYYY/MM/dd') 
+			<![CDATA[<]]> TO_CHAR(sdate, 'YYYY/MM/dd')
 	</select>
 	
-	<select id="selectDoing">
-	
+	<select id="selectDoing" resultType="vo.ChallengeVO">
+		select * from d_challenge 
+			where TO_CHAR(sysdate, 'YYYY/MM/dd') 
+			<![CDATA[>]]> TO_CHAR(sdate, 'YYYY/MM/dd')
 	</select>
 	
-	<select id="selectDone">
-	
+	<select id="selectDone" resultType="vo.ChallengeVO">
+		select * from d_challenge 
+			where TO_CHAR(sysdate, 'YYYY/MM/dd') 
+			<![CDATA[>]]> TO_DATE(TO_CHAR(sdate, 'YYYY/MM/dd'))+term
 	</select>
 
 	<insert id="insert">
@@ -43,6 +55,14 @@
 	
 	<delete id="delete">
 		delete from d_challenge where seq=#{seq}
+	</delete>
+	
+	<delete id="deleteParticipate">
+		delete from piledata where cno=#{seq}
+	</delete>
+	
+	<delete id="deleteReply">
+		delete from reply where seq=#{seq}
 	</delete>
 	
 	<sql id="searchCat">
@@ -78,10 +98,15 @@
 		</if>
 	</select>
 	
-	<select id="checkState" resultType="vo.ChallengeVO">
-		select * from d_challenge
-		<include refid="searchState" />
-	</select>
+	<update id="updateDoing">
+		update d_challenge set state='doing' 
+			where sdate <![CDATA[<=]]> sysdate and sdate+term > sysdate
+	</update>
+	
+	<update id="updateDone">
+		update d_challenge set state='done' 
+			where sdate+term <![CDATA[<]]> sysdate
+	</update>
 	
 	<sql id="searchState">
 		<if test="check != null">
@@ -91,38 +116,20 @@
 			<when test="check=='recruit'.toString()">
 				where state = #{keyVal}
 			</when>
-			<when test="check=='doing'">
+			<when test="check=='doing'.toString()">
   				where state = #{keyVal}
 	  		</when>
-		  	<when test="check=='done'">
+		  	<when test="check=='done'.toString()">
 		  		where state = #{keyVal}
 		  	</when>
-		  	<otherwise></otherwise>
 		</choose>
 	</sql>
 	
-	<select id="checkParticipate" resultType="vo.ChallengeVO">
-		select * from piledata where cno=#{seq} and entry=#{loginID}
+	<select id="checkState" resultType="vo.ChallengeVO">
+		select * from d_challenge
+		<include refid="searchState" />
 	</select>
 	
-	<insert id="participate">
-		insert into piledata (cno, entry, term) values (#{seq}, #{loginID}, #{term})
-	</insert>
 	
-	<insert id="rinsert">
-		<selectKey keyProperty="step" resultType="int" order="BEFORE">
-			select nvl(max(step),0)+1 from reply where seq=#{seq}
-		</selectKey>
- 		insert into reply (seq,step,id,content) 
- 		values(#{seq},#{step},#{id},#{content})
- 	</insert>
- 	
- 	<select id="rList" resultType="vo.ReplyVO">
- 	  select * from reply where seq=#{seq} order by step
- 	</select>
-	
-	<update id="countUp">
-		update d_challenge set cnt=cnt+1 where seq=#{seq}
-	</update>
 	
 </mapper>

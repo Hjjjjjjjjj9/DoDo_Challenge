@@ -70,6 +70,7 @@ $(function () {
 <!-- 진행 상황 검색 -->
 <br>
 <form action="checkState" method="get">
+  &nbsp;&nbsp;&nbsp;
   <select name="check">
     <option value="" selected>--</option>
     <option value="recruit">모집중</option>
@@ -81,7 +82,7 @@ $(function () {
 
 <!-- 카테고리별 검색 -->
 <div class="row">
-  <div class="col-5">
+  <div class="col-7">
     <form action="checkCategory" method="get">
 		<b>&nbsp;&nbsp;&nbsp;
 		카테고리 : </b>
@@ -115,7 +116,7 @@ $(function () {
           <a href="cdetail?seq=${list.seq}">${list.title}</a>
           </c:if>
           <c:if test="${empty loginID}">
-          <a href="loginf">${list.title}</a>
+          <a href="loginform">${list.title}</a>
           </c:if>
 		  <br>카테고리 : 
 			<c:if test="${list.category == 'A'}">공부</c:if>

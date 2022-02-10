@@ -2,10 +2,12 @@ package green.with.dodo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import service.ChallengeService;
+import service.PiledataService;
+import service.ReplyService;
 import vo.ChallengeVO;
+import vo.PiledataVO;
 import vo.ReplyVO;
 
 @Controller
@@ -24,6 +29,10 @@ public class ChallengeController {
 
 	@Autowired
 	ChallengeService service;
+	@Autowired
+	ReplyService rservice;
+	@Autowired
+	PiledataService pservice;
 
 	@RequestMapping(value = "/cinsertf")
 	public ModelAndView loginf(ModelAndView mv) {
@@ -32,7 +41,7 @@ public class ChallengeController {
 	}
 
 	@RequestMapping(value = "/cinsert")
-	public ModelAndView nlist(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr)
+	public ModelAndView cinsert(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr)
 			throws IOException {
 		String uri = "redirect:clist";
 
@@ -46,13 +55,10 @@ public class ChallengeController {
 		// "D:/MTest/HJWork/DoDo/src/main/webapp/resources/uploadImage/"+vo.getId()+"/";
 		else
 			realPath += "resources\\image\\";
-
 		File f1 = new File(realPath);
 		if (!f1.exists())
 			f1.mkdir();
-
 		String file1, file2 = "resources/image/basic.jpg";
-
 		MultipartFile uploadfilef = vo.getThumbnailf();
 		if (uploadfilef != null && !uploadfilef.isEmpty()) {
 			file1 = realPath + uploadfilef.getOriginalFilename();
@@ -62,7 +68,7 @@ public class ChallengeController {
 		vo.setThumbnail(file2);
 
 		if (service.insert(vo) > 0) {
-			service.participate(vo);
+			pservice.participate(vo);
 			rttr.addFlashAttribute("message", "※ 새글 등록 완료 ※");
 		} else {
 			mv.addObject("message", "※ 새글 등록 실패 ※");
@@ -73,9 +79,11 @@ public class ChallengeController {
 	} // cinsert
 
 	@RequestMapping(value = "/clist")
-	public ModelAndView nlist(ModelAndView mv) {
+	public ModelAndView clist(ModelAndView mv) {
 		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
 		list = service.selectList();
+		service.updateDoing();
+		service.updateDone();
 		if (list != null && list.size() > 0)
 			mv.addObject("banana", list);
 		else
@@ -84,21 +92,89 @@ public class ChallengeController {
 		mv.setViewName("challenge/cList");
 		return mv;
 	} // clist
+	
+	@RequestMapping(value = "/recruitlist")
+	public ModelAndView recruitlist(ModelAndView mv) {
+		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
+		list = service.selectRecruit();
+		if (list != null && list.size() > 0)
+			mv.addObject("banana", list);
+		else
+			mv.addObject("message", "※ 출력 자료가 없습니다 ※");
 
+		mv.setViewName("challenge/pList");
+		return mv;
+	} // recruitlist
+	
+	@RequestMapping(value = "/doinglist")
+	public ModelAndView doinglist(ModelAndView mv) {
+		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
+		list = service.selectDoing();
+		if (list != null && list.size() > 0)
+			mv.addObject("banana", list);
+		else
+			mv.addObject("message", "※ 출력 자료가 없습니다 ※");
+
+		mv.setViewName("challenge/pList");
+		return mv;
+	} // doinglist
+	
+	@RequestMapping(value = "/donelist")
+	public ModelAndView donelist(ModelAndView mv) {
+		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
+		list = service.selectDone();
+		if (list != null && list.size() > 0)
+			mv.addObject("banana", list);
+		else
+			mv.addObject("message", "※ 출력 자료가 없습니다 ※");
+
+		mv.setViewName("challenge/pList");
+		return mv;
+	} // donelist
+	
+	@RequestMapping(value = "/plist")
+	public ModelAndView plist(ModelAndView mv, HttpSession session) {
+		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
+		list = service.selectParticipate((String)session.getAttribute("loginID"));
+		if (list != null && list.size() > 0)
+			mv.addObject("banana", list);
+		else
+			mv.addObject("message", "※ 출력 자료가 없습니다 ※");
+
+		mv.setViewName("challenge/pList");
+		return mv;
+	} // plist
+	
 	@RequestMapping(value = "/cdetail")
-	public ModelAndView bdetail(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, ReplyVO rvo) {
+	public ModelAndView cdetail(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, HttpSession session) {
 		String uri = "challenge/cDetail";
 		vo = service.selectOne(vo);
+		vo.setLoginID((String) session.getAttribute("loginID"));
+		List<ReplyVO> rlist = new ArrayList<ReplyVO>();
+		List<PiledataVO> plist = new ArrayList<PiledataVO>();
+		rlist = rservice.rList(vo.getSeq());
+		plist = pservice.selectResult(vo);
 		if (vo != null) {
+			// 수정
 			if ("U".equals(request.getParameter("jcode")))
 				uri = "challenge/cupdateForm";
 			mv.addObject("apple", vo);
-			/*
-			 * List<ReplyVO> list = new ArrayList<ReplyVO>(); int seq = vo.getSeq();
-			 * rvo.setSeq(Integer.parseInt(request.getParameter("seq"))); list =
-			 * service.rList(); if ( list!=null && list.size() > 0) mv.addObject("cherry",
-			 * list); else mv.addObject("message", "※ 댓글이 아직 없습니다 ※");
-			 */
+			// 댓글 리스트
+			if (rlist != null && rlist.size() > 0) {
+				mv.addObject("cherry", rlist);
+				mv.setViewName("redirect:cdetail?seq=" + vo.getSeq());
+			}else {
+				mv.addObject("rmessage", "※ 댓글이 아직 없습니다 ※");
+				mv.setViewName("redirect:cdetail?seq=" + vo.getSeq());
+			}
+			// 진행률 리스트
+			if (plist != null && plist.size() > 0) {
+				mv.addObject("result", plist);
+				mv.setViewName("redirect:cdetail?seq=" + vo.getSeq());
+			}else {
+				mv.addObject("rmessage", "※ 참여 인원이 없습니다 ※");
+				mv.setViewName("redirect:cdetail?seq=" + vo.getSeq());
+			}
 		} else {
 			mv.addObject("message", "※ 글번호에 해당하는 자료가 없습니다 ※");
 		}
@@ -130,7 +206,6 @@ public class ChallengeController {
 			list = service.checkCategory(vo);
 		else
 			list = service.selectList();
-
 		if (list != null && list.size() > 0)
 			mv.addObject("banana", list);
 		else
@@ -157,7 +232,7 @@ public class ChallengeController {
 	} // checkCategory
 
 	@RequestMapping(value = "/cupdate")
-	public ModelAndView bupdate(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr)
+	public ModelAndView cupdate(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr)
 			throws IOException {
 		String uri = "challenge/cList";
 		MultipartFile uploadfilef = vo.getThumbnailf();
@@ -188,10 +263,12 @@ public class ChallengeController {
 	} // cupdate
 
 	@RequestMapping(value = "/cdelete")
-	public ModelAndView bdelete(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr) {
+	public ModelAndView cdelete(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr) {
 		String uri = "redirect:clist";
 		if (service.delete(vo) > 0) {
-			rttr.addFlashAttribute("message", "※ 글삭제 성공 ※");
+			service.deleteParticipate(vo);
+			service.deleteReply(vo);
+			rttr.addFlashAttribute("message", "※ 글,참여자, 댓글 삭제 성공 ※");
 		} else {
 			rttr.addFlashAttribute("message", "※ 글삭제 실패 ※");
 			uri = "redirect:cdetail?seq=" + vo.getSeq();
@@ -204,10 +281,10 @@ public class ChallengeController {
 	public ModelAndView patricipate(ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr, HttpSession session) {
 		String uri = "redirect:cdetail?seq=" + vo.getSeq();
 		vo.setLoginID((String) session.getAttribute("loginID"));
-		if (service.checkParticipate(vo) != null) {
+		if (pservice.checkParticipate(vo) != null) {
 			rttr.addFlashAttribute("message", "※ 해당 챌린지에 이미 참여하셨습니다 ※");
 		} else {
-			if (service.participate(vo) > 0) {
+			if (pservice.participate(vo) > 0) {
 				rttr.addFlashAttribute("message", "※ 챌린지 참여 완료 ※");
 			} else {
 				mv.addObject("message", "※ 챌린지 참여 실패 ※");
@@ -217,34 +294,58 @@ public class ChallengeController {
 		mv.setViewName(uri);
 		return mv;
 	} // participate
+	
+	@RequestMapping(value = "/attend")
+	public ModelAndView attend(HttpServletRequest request, ModelAndView mv, ChallengeVO vo, RedirectAttributes rttr, HttpSession session) {
+		String uri = "redirect:cdetail?seq=" + vo.getSeq();
+		vo.setLoginID((String) session.getAttribute("loginID"));
+		vo.setSeq(Integer.parseInt(request.getParameter("seq")));
+		List<PiledataVO> list = null;
+		list = pservice.checkAttend(vo);
+		if( list != null && list.size() > 0) {
+			rttr.addFlashAttribute("message", "※ 오늘은 이미 출석하셨습니다 ※");
+		} else {
+			if (pservice.checkParticipate(vo) != null) {
+				if (pservice.attend(vo) > 0) {
+					rttr.addFlashAttribute("amessage", "※ 출석 완료 ※");
+				} else {
+					mv.addObject("amessage", "※ 출석 실패 ※");
+					uri = "challenge/cList";
+				}
+			} else {
+				rttr.addFlashAttribute("amessage", "※ 참여하지 않은 챌린지 입니다 ※");
+			}
+		}
+		mv.setViewName(uri);
+		return mv;
+	} // attend
 
 	@RequestMapping(value = "/rinsert")
 	public ModelAndView rinsert(ModelAndView mv, ReplyVO vo, RedirectAttributes rttr) {
-
 		String uri = "redirect:cdetail?seq=" + vo.getSeq();
 		vo.setStep(vo.getStep() + 1);
 
-		if (service.rinsert(vo) > 0) {
-			rttr.addFlashAttribute("message", "※ 댓글 입력 성공 ※");
+		if (rservice.rinsert(vo) > 0) {
+			rttr.addFlashAttribute("rmessage", "※ 댓글 입력 성공 ※");
 		} else {
 			vo.setStep(vo.getStep() - 1);
-			mv.addObject("message", "※ 댓글 입력 실패 ※");
+			mv.addObject("rmessage", "※ 댓글 입력 실패 ※");
 		}
 		mv.setViewName(uri);
 		return mv;
 	} // rinsert
-
-	@RequestMapping(value = "/rlist")
-	public ModelAndView rlist(ModelAndView mv) {
-		List<ReplyVO> list = new ArrayList<ReplyVO>();
-		list = service.rList();
-		if (list != null && list.size() > 0)
-			mv.addObject("cherry", list);
-		else
-			mv.addObject("message", "※ 댓글이 아직 없습니다 ※");
-
-		mv.setViewName("challenge/cList");
+	
+	@RequestMapping(value = "/rreport")
+	public ModelAndView rreport(ModelAndView mv, ReplyVO vo, RedirectAttributes rttr) {
+		String uri = "redirect:cdetail?seq=" + vo.getSeq();
+		if (rservice.rreport(vo) > 0) {
+			rttr.addFlashAttribute("rmessage", "※ 댓글 신고 완료 ※");
+		} else {
+			rttr.addFlashAttribute("rmessage", "※ 댓글 신고 실패 ※");
+			mv.addObject("rmessage", "※ 댓글 신고 실패 ※");
+		}
+		mv.setViewName(uri);
 		return mv;
-	} // rlist
+	} // rreport
 
 }

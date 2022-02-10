@@ -9,7 +9,7 @@
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>
 	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
-	<script src="resources/myLib/nullCheck.js"></script>
+	<script src="resources/myLib/cInCheck.js"></script>
 </head>
 <body>
 
@@ -31,8 +31,9 @@
     <tr>
       <th rowspan="7" width="80"></th>
       <th>제 목</th>
-        <td><input name="title" id="title" type="text" placeholder="제목을 입력해주세요" size="80"></td>
-        <td><span id="tMessage" class="tMessage"></span></td>
+        <td><input name="title" id="title" type="text" placeholder="제목을 입력해주세요" size="80"><br>
+            <span id="tMessage"></span>
+        </td>
     </tr>
     <tr>
       <th>작성자</th>
@@ -42,32 +43,34 @@
     <tr>
       <th>카테고리</th>
 	    <td><select name="category" id="category">
-		  	  <option value="-" selected >----</option>
+		  	  <option value="" selected>----</option>
 			  <option value="A" >공부</option>
 			  <option value="B" >운동</option>
 			  <option value="C" >생활</option>
 			  <option value="D" >취미</option>
-		    </select>
+		    </select><br>
+		    <span id="cMessage"></span>
 	    </td>
-	  <td><span id="cMessage" class="cMessage"></span></td>
 	</tr>
     <tr>
       <th>시작날짜</th>
-        <td><input name="sdate" type="date" id="sdate"></td>
-        <td><span id="dMessage" class="dMessage"></span></td>
+        <td><input name="sdate" type="date" id="sdate"><br>
+        	<span id="dMessage"></span>
+        </td>
     </tr>
     <tr>
       <th>기 간</th>
-        <td><input id="term_10" class="termCheck" name="term" type="radio" value="10">
-        		<label for="term_10">10일</label> &nbsp;&nbsp;
-        	<input id="term_15" class="termCheck" name="term" type="radio" value="15">
-        		<label for="term_15">15일</label> &nbsp;&nbsp;
-        	<input id="term_30" class="termCheck" name="term" type="radio" value="30">
-        		<label for="term_30">30일</label> &nbsp;&nbsp;
-        	<input id="term_60" class="termCheck" name="term" type="radio" value="60">
-        		<label for="term_60">60일</label> &nbsp;&nbsp;
+        <td>
+        <input id="term_10" class="termCheck" name="term" type="radio" value="10">
+       		<label for="term_10">10일</label> &nbsp;&nbsp;
+       	<input id="term_15" class="termCheck" name="term" type="radio" value="15">
+       		<label for="term_15">15일</label> &nbsp;&nbsp;
+       	<input id="term_30" class="termCheck" name="term" type="radio" value="30">
+       		<label for="term_30">30일</label> &nbsp;&nbsp;
+       	<input id="term_60" class="termCheck" name="term" type="radio" value="60">
+       		<label for="term_60">60일</label> &nbsp;&nbsp;<br>
+        <span id="termMessage"></span>
         </td>
-        <td><span id="termMessage" class="termMessage"></span></td>
     </tr>
     <tr>
       <th>내 용</th>
@@ -91,16 +94,18 @@
 			</script>
 		</td>
     </tr>
-      
     <tr>
       <td colspan="4" style="text-align: center;">
         <input type="submit" value="확인" onclick="return nullCheck()">&nbsp;&nbsp;
-	    <input type="reset" value="취소">&nbsp;&nbsp;
+	    <input type="reset" value="취소" onclick="location.href='clist'">&nbsp;&nbsp;
 	  </td>
 	</tr>
     </table>
     </form>
   </div>
+  <c:if test="${not empty message}">
+    <span>${message}</span><br>
+  </c:if>
 </div>
 </div>
 
@@ -110,23 +115,32 @@
 <div class="row container-fluid" style="height: 10rem; position: absolute; background: snow; ">
   <%@ include file="../footer.jsp" %>
 </div>
+
 <script>
 function nullCheck() {
-	if($('#title').val() == null) {
-		$('#tMessage').html('제목을 입력하세요');
-		return false;
-	} else if($('#category').val() == null) {
-		$('#cMessage').html('카테고리를 선택하세요');
-		return false;
-	} else if($('#sdate').val() == null) {
-		$('#dMessage').html('시작날짜를 선택하세요');
-		return false;
-	} else if($('.termCheck').val() == null) {
-		$('#termMessage').html('기간을 선택하세요');
-		return false;
+	alert('nullCheck');
+	var titleCheck = false;
+	var categoryCheck = false;
+	var dateCheck = false;
+	var termCheck = false;
+	
+	titleCheck = title();
+	categoryCheck = category();
+	dateCheck = date();
+	termCheck = term();
+	
+	if ( titleCheck && categoryCheck && dateCheck && termCheck ) {
+		var insert = confirm("챌린지를 등록합니다.");
+		if(insert == false) {
+			alert('챌린지 등록이 취소되었습니다.');
+			return false;
+		} else {
+			alert('챌린지 등록이 완료되었습니다.');
+			return true;
+		}
 	} else 
-		return true;
-}
+		return false; 
+} 
 </script>
 </body>
 </html>

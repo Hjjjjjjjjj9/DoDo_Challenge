@@ -8,25 +8,15 @@
 		select * from d_member where id = #{id}
 	</select>
  	
- 	<sql id="ridCheck">
- 		<if test="#{rid} != null">
- 			#{rid}
- 		</if>
- 		<if test="#{rid} == null">
- 			'none'
- 		</if>
- 	</sql>
- 	
  	<insert id="insert">
- 		insert into d_member (id,password,name,mail,nick,rid,prefer) 
- 		values(#{id},#{password},#{name},#{mail},#{nick},
- 		<include refid="ridCheck"></include>
-		,#{prefer})
+ 		INSERT INTO d_member(id, password, name, mail, nick, prefer, rid) 
+		VALUES(#{id}, #{password}, #{name}, #{mail}, #{nick}, #{prefer}, #{rid})
  	</insert>
 	
 	<update id="update">
-		update d_member set password=#{password}, name=#{name}, mail=#{mail}, 
-		nick=#{nick},prefer=#{prefer} where id=#{id}
+		UPDATE d_member SET password=#{password}, name=#{name}, 
+		mail=#{mail}, nick=#{nick} 
+		WHERE id=#{id}
 	</update>
 	
 	<update id="pwUpdate">
@@ -38,7 +28,7 @@
 	</update>
 	
 	<delete id="delete">
-		delete from d_member where id=#{inputName_1}
+		delete from d_member where id=#{id}
 	</delete>
 	
 	<select id="findID" resultType="vo.MemberVO">
@@ -52,5 +42,21 @@
 	<update id="setPassword">
 		update d_member set tmpPassword=#{tmpPassword} where id=#{id} and mail=#{mail}
 	</update>
+	
+	<select id="pageList" resultType="vo.MemberVO">
+	    SELECT id, name, nick, point
+	    FROM d_member
+	    WHERE id != 'admin' ORDER BY id	ASC
+	</select>
+	
+	<select id="selectList" resultType="vo.MemberVO">
+	    SELECT id, name, nick, point
+	    FROM d_member
+	    WHERE id != 'admin' ORDER BY id ASC
+	</select>
+	
+	<select id="totalRowCount" resultType="int">
+	    SELECT COUNT(*) FROM d_member
+	</select>
 	
 </mapper>

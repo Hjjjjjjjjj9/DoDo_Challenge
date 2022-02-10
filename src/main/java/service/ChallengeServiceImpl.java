@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import mapperInterface.ChallengeMapper;
 import vo.ChallengeVO;
-import vo.ReplyVO;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
@@ -24,6 +23,22 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return dao.selectOne(vo);
 	}
 	@Override
+	public List<ChallengeVO> selectParticipate(String loginID) {
+		return dao.selectParticipate(loginID);
+	}
+	@Override
+	public List<ChallengeVO> selectRecruit() {
+		return dao.selectRecruit();
+	}
+	@Override
+	public List<ChallengeVO> selectDoing() {
+		return dao.selectDoing();
+	}
+	@Override
+	public List<ChallengeVO> selectDone() {
+		return dao.selectDone();
+	}
+	@Override
 	public int insert(ChallengeVO vo) {
 		return dao.insert(vo);
 	}
@@ -34,6 +49,14 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public int delete(ChallengeVO vo) {
 		return dao.delete(vo);
+	}
+	@Override
+	public int deleteParticipate(ChallengeVO vo) {
+		return dao.deleteParticipate(vo);
+	}
+	@Override
+	public int deleteReply(ChallengeVO vo) {
+		return dao.deleteReply(vo);
 	}
 	@Override
 	public int countUp(ChallengeVO vo) {
@@ -52,20 +75,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return dao.checkState(vo);
 	}
 	@Override
-	public int participate(ChallengeVO vo) {
-		return dao.participate(vo);
+	public int updateDoing() {
+		return dao.updateDoing();
 	}
 	@Override
-	public ChallengeVO checkParticipate(ChallengeVO vo) {
-		return dao.checkParticipate(vo);
-	}
-	@Override
-	public int rinsert(ReplyVO vo) {
-		return dao.rinsert(vo);
-	}
-	@Override
-	public List<ReplyVO> rList() {
-		return dao.rList();
+	public int updateDone() {
+		return dao.updateDone();
 	}
 	
 } //class

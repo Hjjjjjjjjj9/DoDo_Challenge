@@ -79,7 +79,7 @@
   <c:if test="${not empty id}">
 	<h4 id="name_value"></h4>
 	<span>=> ${id}</span><br>
-	<a href="loginf" class="btn btn-primary btn-block" >로그인 하기</a>
+	<a href="loginform" class="btn btn-primary btn-block" >로그인 하기</a>
   </c:if>
   <div>
 	<h4 id="message">${message}</h4><br>

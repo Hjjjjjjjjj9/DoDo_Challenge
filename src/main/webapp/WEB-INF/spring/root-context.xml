@@ -22,4 +22,8 @@
 	    </property>
 	</bean>
 		
+	<!--스프링시큐리티 라이브러리 BcryptPasswordEncoder -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+	
 </beans>

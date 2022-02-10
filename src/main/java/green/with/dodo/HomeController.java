@@ -1,7 +1,9 @@
 package green.with.dodo;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -10,6 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import service.ChallengeService;
+import service.RankingService;
+import vo.ChallengeVO;
+import vo.RankingVO;
 
 @Controller
 public class HomeController {
@@ -22,12 +33,39 @@ public class HomeController {
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
 		String formattedDate = dateFormat.format(date);
-		
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+	}
+	
+	@Autowired
+	RankingService rservice;
+   
+	@RequestMapping(value = "/ranklist")
+	public ModelAndView ranklist(ModelAndView mv) {
+		
+		List<RankingVO> list = new ArrayList<RankingVO>();
+    	list = rservice.selectList();
+    	
+    	// => Mapper 는 null 을 return 하지 않으므로 길이로 확인 
+    	if ( list!=null && list.size()>0 ) mv.addObject("rankbanana", list);
+    	else mv.addObject("message", "출력 자료가 없습니다 ");
+		
+    	mv.setViewName("board/ranking");
+		return mv;
+	} //alist
+	
+	@RequestMapping(value = "/myPage")
+	public ModelAndView myPage(ModelAndView mv) {
+		mv.setViewName("myPage/myPage");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/mList")
+	public ModelAndView mList(ModelAndView mv) {
+		mv.setViewName("member/mList");
+		return mv;
 	}
 	
 }

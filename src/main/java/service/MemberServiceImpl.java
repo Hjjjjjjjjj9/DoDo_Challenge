@@ -1,10 +1,13 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mapperInterface.MemberMapper;
 import vo.MemberVO;
+import vo.PageVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -48,5 +51,19 @@ public class MemberServiceImpl implements MemberService {
 	public int tmpDelete(MemberVO vo) {
 		return dao.tmpDelete(vo);
 	}
-
+	@Override
+	public List<MemberVO> selectList() {
+		return dao.selectList();
+	}
+	@Override
+	public int totalRowCount() {
+		return dao.totalRowCount();
+	}
+	@Override
+	public PageVO<MemberVO> pageList(PageVO<MemberVO> pvo){
+		pvo.setTotalRowCount(dao.totalRowCount());
+		pvo.setList(dao.pageList(pvo));
+		return pvo;
+	}
+	
 } //class

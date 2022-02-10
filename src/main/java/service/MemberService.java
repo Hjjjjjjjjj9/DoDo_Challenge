@@ -1,6 +1,9 @@
 package service;
 
+import java.util.List;
+
 import vo.MemberVO;
+import vo.PageVO;
 
 public interface MemberService {
 	
@@ -16,4 +19,8 @@ public interface MemberService {
 	int pwUpdate(MemberVO vo);
 	int tmpDelete(MemberVO vo);
 
+	PageVO<MemberVO> pageList(PageVO<MemberVO> pvo);
+	List<MemberVO> selectList();
+	int totalRowCount();
+	
 }

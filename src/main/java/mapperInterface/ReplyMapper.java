@@ -1,0 +1,13 @@
+package mapperInterface;
+
+import java.util.List;
+
+import vo.ReplyVO;
+
+public interface ReplyMapper {
+	
+	int rinsert(ReplyVO vo);
+	List<ReplyVO> rList(int seq);
+	int rreport(ReplyVO vo);
+	
+} //interface

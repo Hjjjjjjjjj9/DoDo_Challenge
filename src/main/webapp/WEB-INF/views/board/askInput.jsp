@@ -5,34 +5,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1문의 Input</title>
+<title>1:1문의 작성하기</title>
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" 
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	
+	
+<script>
+$(document).ready(function(){
+	$("#submit").click(function(){
+		if($("#title").val()==""){alert("제목을 입력하세요."); $("#title").focus(); return false;}
+		if($("#content").val()==""){alert("내용을 입력하세요."); $("#content").focus(); return false;}
+	});
+});
+</script>
 </head>
 <body>
-
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <br>
 <div>
   <p>1:1문의 작성하기</p>
 </div>
-<hr>
-
+<br>
+<form action="ainsert" method="post">
 <div class="row-col-3">
   <div>
-    <table class="table">
+  <table class="table" border="2" style="width: 60em; margin-left:auto; margin-right: auto;">
       <tr>
-        <th rowspan="6" width="80"></th>
-        <th>제 목</th>
-        <td><input type="text" placeholder="제목을 입력해주세요" size="80"></td>
+        <th style="border-color:GhostWhite; text-align: center; background: GhostWhite;" >제목 : <input type="text" name="title" id="title" placeholder="제목을 입력해주세요" size="40"></th>
       </tr>
       <tr>
-        <th>내 용</th>
-        <td><textarea rows="20" cols="81" placeholder="내용을 입력해주세요" ></textarea></td>
+        <th scope="col" colspan="5" style="border-bottom-color:Gainsboro; text-align: center;  background: GhostWhite">작성자 : 
+        <input type="text" name="id" value="${loginID}" size="40" readonly="readonly"></th>
       </tr>
       <tr>
+         <th style="text-align: center;"><textarea  cols="50" rows="10" name="content" id="content" placeholder="내용을 입력해주세요" ></textarea></th>       
+      </tr>
+      <!-- <tr>
         <th>사진첨부</th>
         <td><input type="file" name="uploadfilef" id="uploadfilef">
 			<script>
@@ -48,17 +59,19 @@
 			}); // change			
 			</script>
 		</td>
+      </tr> -->
+      <tr style="text-align: center;">
+        <td><input type="submit" id="submit" value="등록">&nbsp;&nbsp;
+			<input onclick="javascript:history.go(-1)" type="reset" value="취소"></td>
       </tr>
-      <tr>
-        <td colspan="2" style="text-align: center;">
-          <input type="submit" value="확인">&nbsp;&nbsp;
-		  <input type="reset" value="취소">&nbsp;&nbsp;
-		</td>
-	  </tr>
-    </table>
+      </table>
   </div>
 </div>
+</form>
 
+<div class="row container-fluid" style="height: 10rem; position: fixed; bottom: 0;">
+  <%@ include file="/WEB-INF/views/footer.jsp" %>
+</div>
 
 </body>
 </html>
