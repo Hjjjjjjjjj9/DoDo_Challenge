@@ -33,7 +33,8 @@
     <div class="form-group">
         <label for="id">아이디: </label>
         <input type="text" class="form-control" name="id" id="id" placeholder="ID">
-        <input type="button" value="중복확인" id="idDup" onclick="idDupCheck()">
+    	<input type="hidden" name="ifIdDupChecked" id="ifIdDupChecked" value="unchecekd">
+        <input type="button" value="ID중복확인" id="idDup" onclick="idDupCheck()">
     </div><br>
     <div class="form-group">
         <label for="password">비밀번호: </label>
@@ -46,6 +47,8 @@
     <div class="form-group">
         <label for="mail">이메일: </label>
         <input type="email" class="form-control" name="mail" id="mail" placeholder="example@dodo.com">
+        <input type="hidden" name="ifMailDupChecked" id="ifMailDupChecked" value="unchecked">
+        <input type="button" value="Email중복확인" id="mailDup" onclick="mailDupCheck()">
     </div><br>
     <div class="form-group">
         <label for="name">이름: </label>
@@ -61,7 +64,7 @@
         <label><input type="radio" name="prefer" value="workout">운동</label>
         </div>
         <div class="radio">
-        <label><input type="radio" name="prefer"value="study">공부</label>
+        <label><input type="radio" name="prefer" value="study">공부</label>
         </div>
         <div class="radio">
         <label><input type="radio" name="prefer" value="routine">생활</label>

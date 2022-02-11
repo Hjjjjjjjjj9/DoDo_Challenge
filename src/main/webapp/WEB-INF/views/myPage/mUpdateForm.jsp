@@ -20,6 +20,7 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 <h3>회원정보</h3>
 <br><hr><br>
 <form action="mUpdate" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<table>
 		<tr><td>아이디 : <input type="text" name="id" id="id" value="${loginUser.id}" readonly="readonly"></td></tr>
 		<tr><td>비밀번호 : <input type="password" name="password" id="password"></td></tr>

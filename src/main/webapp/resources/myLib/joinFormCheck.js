@@ -1,12 +1,17 @@
  
 function joinCheck() {
-    var mailCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); //메일
     var PwCheck = RegExp(/^[A-Za-z0-9]{4,20}$/); // 영문 + 숫자 4~20자리
     var getName= RegExp(/^[가-힣]+$/); //한글만
 
     if (idCheck() == false){
 	    return false;
     }
+    if($("#ifIdDupChecked").val() != "idChecked"){
+	    alert("아이디 중복 체크해주세요");
+        $("#id").focus();
+        return false;
+    }
+
    
     //비밀번호
     if($("#password").val() == ""){
@@ -18,7 +23,7 @@ function joinCheck() {
         alert("비밀번호는 영문과 숫자로 이루어진 4~20자 조합으로 입력해주세요.");
         $("#password").val("");
         $("#password").focus();
-    return false;
+        return false;
     }
 
     if($("#password").val() != ($("#passwordRe").val())){
@@ -40,17 +45,16 @@ function joinCheck() {
    
 
    //이메일
-    if($("#mail").val() == ""){
-        alert("이메일을 입력해주세요");
+    if (mailCheck() == false){
+	    return false;
+    }
+
+    if($("#ifMailDupChecked").val() != "mailChecked"){
+	    alert("이메일 중복 체크해주세요");
         $("#mail").focus();
         return false;
     }
-    if(!mailCheck.test($("#mail").val())){
-        alert("이메일형식에 맞게 입력해주세요")
-        $("#mail").val("");
-        $("#mail").focus();
-        return false;
-    }
+    
    
     //이름
     if($("#name").val() == ""){
@@ -76,11 +80,14 @@ function joinCheck() {
         return false;
     }
     
-return true;
+    return true;
 }
 
-// 아이디
+
+
+// 아이디 체크 함수
 function idCheck(){
+	
     if($("#id").val() == ""){
         alert("아이디를 입력하세요");
         $("#id").focus();
@@ -94,8 +101,8 @@ function idCheck(){
         $("#id").focus();
         return false;
     }
-}
 
+}
 //아이디중복
 function idDupCheck(){
 	if (idCheck() == false){
@@ -107,4 +114,32 @@ function idDupCheck(){
 	}
 }
 
+// 메일 체크함수
+function mailCheck(){
 
+    var mailRegCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); //메일
+
+    if($("#mail").val() == ""){
+        alert("이메일을 입력해주세요");
+        $("#mail").focus();
+        return false;
+    }
+    
+    var mailRegCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); //메일
+    if(!mailRegCheck.test($("#mail").val())){
+        alert("이메일형식에 맞게 입력해주세요")
+        $("#mail").val("");
+        $("#mail").focus();
+        return false;
+    }
+}
+//메일중복
+function mailDupCheck(){
+	if (mailCheck() == false){
+		return false;
+	}else{
+		var url="mailcheck?mail="+$('#mail').val(); 
+		window.open(url,'_blank',
+				'toolbar=no,menubar=yes,scrollbars=yes,	resizable=yes,width=400,height=300');
+	}
+}

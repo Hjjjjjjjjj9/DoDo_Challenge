@@ -8,6 +8,7 @@ import vo.PageVO;
 public interface MemberService {
 	
 	MemberVO selectOne(MemberVO vo); //selectOne
+	MemberVO selectOnebyMail(MemberVO vo);
 	int insert(MemberVO vo); //insert
 	int update(MemberVO vo); //update
 	int delete(MemberVO vo); //delete

@@ -18,6 +18,8 @@
 	opener.$('#id').val('${newID}');
 	opener.document.getElementById('idDup').disabled='disabled';
 	
+	opener.$('#ifIdDupChecked').val('idChecked');
+	
 	opener.$('#id').prop('readonly',true);
 	opener.$('#password').focus();
 	

@@ -191,6 +191,20 @@ public class MemberController {
     	mv.setViewName("member/idDupCheck");
     	return mv;
     }
+    
+    @RequestMapping(value="/mailcheck")
+    public ModelAndView mailcheck(ModelAndView mv, MemberVO vo) {
+    	mv.addObject("newMail", vo.getMail());
+    	if(service.selectOnebyMail(vo) != null) {
+    		mv.addObject("canUseMail", "F"); //사용불가
+    		System.out.println("메일중복됨 사용불가");
+    	} else {
+    		mv.addObject("canUseMail", "T");
+    		System.out.println("메일 사용가능");
+    	}
+    	mv.setViewName("member/mailDupCheck");
+    	return mv;
+    }
 	
 // =====================================================================================
 	

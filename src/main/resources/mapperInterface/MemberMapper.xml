@@ -5,17 +5,22 @@
 <mapper namespace="mapperInterface.MemberMapper">
  
  	<select id="selectOne" resultType="vo.MemberVO">
-		select * from d_member where id = #{id}
+		SELECT * FROM d_member WHERE id = #{id}
+	</select>
+	
+	<select id="selectOnebyMail" resultType="vo.MemberVO">
+	    SELECT * FROM d_member WHERE mail = #{mail}	
 	</select>
  	
  	<insert id="insert">
  		INSERT INTO d_member(id, password, name, mail, nick, prefer, rid) 
-		VALUES(#{id}, #{password}, #{name}, #{mail}, #{nick}, #{prefer}, #{rid})
+		VALUES(#{id}, #{password}, #{name}, #{mail}, #{nick}, #{prefer, jdbcType=VARCHAR}, #{rid, jdbcType=VARCHAR})
  	</insert>
 	
 	<update id="update">
 		UPDATE d_member SET password=#{password}, name=#{name}, 
-		mail=#{mail}, nick=#{nick} 
+		mail=#{mail}, nick=#{nick},
+		prefer=#{prefer, jdbcType=VARCHAR} 
 		WHERE id=#{id}
 	</update>
 	

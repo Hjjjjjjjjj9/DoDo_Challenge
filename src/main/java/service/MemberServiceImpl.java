@@ -20,16 +20,20 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectOne(vo);
 	}
 	@Override
+	public MemberVO selectOnebyMail(MemberVO vo) {
+		return dao.selectOnebyMail(vo);
+	}
+	@Override
 	public int insert(MemberVO vo) {
-		return 0;
+		return dao.insert(vo);
 	}
 	@Override
 	public int update(MemberVO vo) {
-		return 0;
+		return dao.update(vo);
 	}
 	@Override
 	public int delete(MemberVO vo) {
-		return 0;
+		return dao.delete(vo);
 	}
 	@Override
 	public MemberVO findID(MemberVO vo) {

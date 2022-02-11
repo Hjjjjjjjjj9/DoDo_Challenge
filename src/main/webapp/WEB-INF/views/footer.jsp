@@ -17,7 +17,7 @@
       <li class="nav-item"><a href="home" class="nav-link px-2 text-muted">Home</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-      <li class="nav-item"><a href="adminLogin" class="nav-link px-2 text-muted">Admin</a></li>
+      <li class="nav-item"><a href="adminList" class="nav-link px-2 text-muted">Admin</a></li>
       <li class="nav-item"><a href="adminList" class="nav-link px-2 text-muted">Github</a></li>
     </ul>
     <p class="text-center text-muted">너Do나Do &copy; 2022 Team 같이하조 </p>
