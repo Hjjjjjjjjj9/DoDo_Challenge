@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>너Do나Do : 회원리스트</title>
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
-<script src="resources/myLib/joinFormCheck.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" 
@@ -43,14 +42,15 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
         <td>${list.name}</td>
         <td>${list.nick}</td>
         <td>${list.point}</td>
-        <td><button type="button" class="btn btn-primary btn-sm position-relative">내역<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span> </button></td>
+        <td><button type="button" class="btn btn-primary btn-sm position-relative" onclick="location.href='mdetail?id=${list.id}'">내역<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span> </button></td>
     </tr>
     </c:forEach>
     </tbody>
     </table>
 
 <form id="adminLogout" action="<c:url value="/logout"/>" method="post">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/><button>로그아웃</button>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
 </form>
 
 </div>

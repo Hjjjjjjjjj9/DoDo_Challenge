@@ -1,5 +1,11 @@
 package green.with.dodo;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -7,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import service.MemberService;
 import vo.MemberVO;
@@ -19,7 +26,14 @@ public class SecurityController {
 	MemberService service;
 	
 	@GetMapping("/adminLogin")
-	public String adminLogin(String message, Model model) {
+	public String adminLogin(HttpServletRequest request, String message, Model model) {
+		
+		// 기존 member용 아이디 logout
+        HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		
 		if(message != null) {
 			model.addAttribute("error", "관리자 로그인 에러 : 계정확인");
 		}
@@ -27,6 +41,13 @@ public class SecurityController {
 			model.addAttribute("logout", "로그아웃되지 않은 상태입니다");
 		}
 		return "admin/adminLogin";
+	}
+	
+
+	@RequestMapping(value="/adminLogout")
+	public String aLogout() {
+		System.out.println("관리자 로그아웃");
+		return "redirect:/";
 	}
 	
 	@Secured({"ROLE_ADMIN"})
@@ -65,10 +86,36 @@ public class SecurityController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/adminLogout")
-	public String aLogout() {
-		System.out.println("관리자 로그아웃");
-		return "redirect:/";
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/mdetail")
+	public ModelAndView memberDetail(HttpServletRequest request, ModelAndView mv, MemberVO vo) throws ServletException, IOException{
+	
+		String id = vo.getId();
+		vo.setId(id);
+		vo = service.selectOne(vo);
+		mv.addObject("selectedMember", vo);
+		mv.setViewName("admin/memberDetail");
+		
+		return mv;
 	}
+	
+    @RequestMapping(value = "/adminMdelete")
+    public ModelAndView adminMdelete(HttpServletRequest request, 
+    		ModelAndView mv, MemberVO vo, RedirectAttributes rttr) {
+    	
+    	String id = vo.getId();
+    	vo.setId(id);
+    	
+    	if(service.delete(vo) > 0) {
+    		rttr.addFlashAttribute("message", "회원이 탈퇴처리되었습니다.");
+    	} else {
+    		rttr.addFlashAttribute("message", "탈퇴 오류");
+    	}
+    	
+    	mv.setViewName("admin/memberList");
+    	return mv;
+    } //mdelete
+	
+	
 
-}
+} // class
