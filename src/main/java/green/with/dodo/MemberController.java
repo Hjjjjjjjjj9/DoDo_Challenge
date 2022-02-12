@@ -143,7 +143,7 @@ public class MemberController {
     } //mdelete
     
     @RequestMapping(value="/mUpdatef")
-    public ModelAndView mUpdate(HttpServletRequest request, ModelAndView mv, MemberVO vo) 
+    public ModelAndView mUpdatef(HttpServletRequest request, ModelAndView mv, MemberVO vo) 
     		throws ServletException, IOException{
     	HttpSession session = request.getSession(false);
     	
@@ -166,15 +166,13 @@ public class MemberController {
     @RequestMapping(value="/mUpdate")
     public ModelAndView mupdate(HttpServletRequest request, ModelAndView mv, MemberVO vo, RedirectAttributes rttr) 
     		throws IOException {
-    	String uri = null;
     	if ( service.update(vo) > 0 ) {
     		rttr.addFlashAttribute("message", "회원정보 수정 완료");
     		request.getSession().setAttribute("loginName",  vo.getName());
     	} else { // 실패시
     		rttr.addFlashAttribute("message", "회원정보 수정 실패");
     	}
-		uri = "redirect:";
-    	mv.setViewName(uri);
+    	mv.setViewName("redirect:/");
     	return mv;    	
     }
     

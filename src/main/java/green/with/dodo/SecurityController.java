@@ -46,6 +46,9 @@ public class SecurityController {
 		}
 		*/
 		
+		request.setAttribute("secAdmin", "admin");
+		System.out.println("setAttribute: secAdmin, admin 설정"); //관리자 attribute 부여
+		
 		if(message != null) {
 			model.addAttribute("error", "관리자 로그인 에러 : 계정확인");
 		}
@@ -109,7 +112,6 @@ public class SecurityController {
 		mv.setViewName("admin/memberDetail");
 		
 		List<ReplyVO> rvo = rService.reportedList(vo.getNick());
-		
 		
 		mv.addObject("reportedReplies", rvo);
 		

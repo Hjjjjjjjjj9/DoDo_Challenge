@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 -->
-<title>myPage</title>
+<title>너Do나Do : 내정보</title>
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -18,7 +18,14 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" 
 	integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-  
+	<script> 
+    $(function(){
+        var responseMessage = "<c:out value="${message}" />";
+        if (responseMessage != ""){
+        alert(responseMessage)
+        }
+    })
+    </script>
 </head>
 <body>
 <!-- svg path -->
@@ -71,12 +78,12 @@
           </li>
           <br>
           <li class="nav-item">
-            <a class="nav-link link-dark" id="mupdatef">
+            <a href="#" class="nav-link link-dark" id="mupdatef">
               회원정보 수정
             </a>
           </li>
           <li class="nav-item">
-            <a href="mdelete" class="nav-link link-dark">
+            <a href="mdelete" class="nav-link link-dark" onclick="return confirm('탈퇴하시겠습니까?')">
               회원탈퇴
             </a>
           </li>
@@ -127,6 +134,18 @@ $('#mupdatef').click(function() {
 		}
 	}); //ajax
 });
+
+function confirmDelete(){
+	
+	if(confirm('정말 탈퇴?')){
+		alert('성공')
+		return true;
+	}else{
+		alert('취소');
+		return false;
+	}
+	
+}
 </script>
   
 </body>
