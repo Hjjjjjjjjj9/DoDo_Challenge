@@ -14,4 +14,5 @@ public class MemberVO {
 	private String prefer;
 	
 	private String tmpPassword;
+	
 }

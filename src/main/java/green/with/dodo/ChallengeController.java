@@ -49,7 +49,7 @@ public class ChallengeController {
 		System.out.println("** realPath => " + realPath);
 
 		if (realPath.contains(".eclipse."))
-			realPath = "C:/MTest/HJWork/DoDo/src/main/webapp/resources/image/";
+			realPath = "D:/webJAVA/IDEset/eclipse_git_repo/DoDo_Challenge/src/main/webapp/resources/image/";
 		// realPath = "D:/MTest/HJWork/DoDo/src/main/webapp/resources/image/";
 		// realPath =
 		// "D:/MTest/HJWork/DoDo/src/main/webapp/resources/uploadImage/"+vo.getId()+"/";

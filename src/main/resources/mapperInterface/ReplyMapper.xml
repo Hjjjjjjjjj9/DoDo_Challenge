@@ -23,4 +23,10 @@
 		update reply set report = report+1, detail = #{detail} 
 			where seq = #{seq} and step = #{step}
 	</update>
+	
+	
+	<select id="reportedList" resultType="vo.ReplyVO">
+	    select * from reply where id = #{nick}
+	
+	</select>
 </mapper>

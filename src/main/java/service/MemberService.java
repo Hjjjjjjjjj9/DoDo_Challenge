@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import vo.MemberVO;
 import vo.PageVO;
@@ -23,5 +24,7 @@ public interface MemberService {
 	PageVO<MemberVO> pageList(PageVO<MemberVO> pvo);
 	List<MemberVO> selectList();
 	int totalRowCount();
+	
+	List<Map<String, Object>> getAdminMember();
 	
 }

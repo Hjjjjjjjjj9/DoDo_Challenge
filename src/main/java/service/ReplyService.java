@@ -10,4 +10,6 @@ public interface ReplyService {
 	List<ReplyVO> rList(int seq);
 	int rreport(ReplyVO vo);
 	
+	List<ReplyVO> reportedList(String nick);
+	
 }

@@ -1,6 +1,8 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,14 @@ public class MemberServiceImpl implements MemberService {
 		pvo.setTotalRowCount(dao.totalRowCount());
 		pvo.setList(dao.pageList(pvo));
 		return pvo;
+	}
+	@Override
+	public List<Map<String, Object>> getAdminMember() {
+		
+		List<Map<String, Object>> adminMember = new ArrayList<Map<String, Object>>();
+		adminMember = dao.getAdminMember();
+		
+		return adminMember;
 	}
 	
 } //class

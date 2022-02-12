@@ -11,6 +11,14 @@
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script> 
+    $(function(){
+        var responseMessage = "<c:out value="${message}" />";
+        if (responseMessage != ""){
+        alert(responseMessage)
+        }
+    })
+</script>
 <style type="text/css">
     .container.custom-container {
       padding: 0 9rem;
@@ -50,7 +58,7 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 
 <form id="adminLogout" action="<c:url value="/logout"/>" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
+    <button type="submit" class="btn btn-secondary btn-sm">로그아웃</button>
 </form>
 
 </div>

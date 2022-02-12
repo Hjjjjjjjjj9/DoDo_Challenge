@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
@@ -11,6 +10,15 @@
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script> 
+    $(function(){
+        var responseMessage = "<c:out value="${message}" />";
+        if (responseMessage != ""){
+        alert(responseMessage)
+        }
+    })
+</script>
+
 <style type="text/css">
     .container.custom-container {
       padding: 0 9rem;
@@ -82,6 +90,16 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
                 <td>2022.02.11</td>
                 <td>link</td>
             </tr>
+            <c:forEach var="list" items="${reportedReplies}" varStatus="status">
+            <tr>
+                <td>${status.count}</td>
+                <td>title</td>
+                <td>${list.detail}</td>
+                <td>${list.content}</td>
+                <td>${list.regdate}</td>
+                <td><a href="cdetail?seq=${list.seq}">link</a></td>
+            </tr>
+            </c:forEach>
         
         
         </table> 

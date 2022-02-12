@@ -27,4 +27,10 @@ public class ReplyServiceImpl implements ReplyService {
 		return dao.rreport(vo);
 	}
 	
+	
+	@Override
+	public List<ReplyVO> reportedList(String nick) {
+		return dao.reportedList(nick);
+	}
+	
 } //class

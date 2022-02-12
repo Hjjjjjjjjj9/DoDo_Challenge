@@ -26,7 +26,7 @@
 
 <div class="row-col-3">
   <div>
-  <form action="cinsert" method="post" enctype="multipart/form-data">
+  <form action="cinsert?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
   <table class="table">
     <tr>
       <th rowspan="7" width="80"></th>
