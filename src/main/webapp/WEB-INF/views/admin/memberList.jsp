@@ -42,7 +42,7 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
         <td>${list.name}</td>
         <td>${list.nick}</td>
         <td>${list.point}</td>
-        <td><button type="button" class="btn btn-primary btn-sm position-relative" onclick="location.href='mdetail?id=${list.id}'">내역<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span> </button></td>
+        <td><button type="button" class="btn btn-primary btn-sm position-relative" onclick="location.href='mdetail?id=${list.id}'">정보</button></td>
     </tr>    
     </c:forEach>
     </tbody>

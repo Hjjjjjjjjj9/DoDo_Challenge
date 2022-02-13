@@ -60,40 +60,21 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
             </tr>
             <tr>
                 <th>#</th>
-                <th>챌린지</th>
                 <th>신고사유</th>
                 <th>내용</th>
                 <th>날짜</th>
                 <th>바로가기</th>
             </tr>
             </thead>
-            <tr>
-                <td>1</td>
-                <td>물 많이 마시기!!</td>
-                <td>비매너</td>
-                <td>아 오지고 지리고요 물많이먹다가 신장병걸림 망건강 수고~ </td>
-                <td>2022.01.24</td>
-                <td>link</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>미라클 모닝</td>
-                <td>광고</td>
-                <td>모닝건강은 장건강과 함께!! 여기를 클릭해서 '아침상쾌'에 대해 알아보세요</td>
-                <td>2022.02.11</td>
-                <td>link</td>
-            </tr>
 			<c:forEach var="list" items="${reportedReplies}" varStatus="status">
             <tr>
                 <td>${status.count}</td>
-                <td>title</td>
                 <td>${list.detail}</td>
                 <td>${list.content}</td>
                 <td><fmt:formatDate value="${list.regdate}" pattern="yyyy/MM/dd"/></td>
                 <td><a href="cdetail?seq=${list.seq}">link</a></td>
             </tr>
             </c:forEach>
-
         </table> 
     </div>
 

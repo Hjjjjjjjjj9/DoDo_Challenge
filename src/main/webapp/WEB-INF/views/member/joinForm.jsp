@@ -31,35 +31,35 @@
 <form class="form" action="join" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <div class="form-group">
-        <label for="id">아이디: </label>
+        <label for="id">아이디* : </label>
         <input type="text" class="form-control" name="id" id="id" placeholder="ID">
         <input type="hidden" name="ifIdDupChecked" id="ifIdDupChecked" value="unchecekd">
         <input type="button" value="ID중복확인" id="idDup" onclick="idDupCheck()">
     </div><br>
     <div class="form-group">
-        <label for="password">비밀번호: </label>
+        <label for="password">비밀번호* : </label>
         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
     </div><br>
     <div class="form-group">
-        <label for="passwordRe">비밀번호 확인: </label>
+        <label for="passwordRe">비밀번호 확인*: </label>
         <input type="password" class="form-control" name="passwordRe" id="passwordRe" placeholder="Password 재입력">
     </div><br>
     <div class="form-group">
-        <label for="mail">이메일: </label>
+        <label for="mail">이메일* : </label>
         <input type="email" class="form-control" name="mail" id="mail" placeholder="example@dodo.com">
         <input type="hidden" name="ifMailDupChecked" id="ifMailDupChecked" value="unchecked">
         <input type="button" value="Email중복확인" id="mailDup" onclick="mailDupCheck()">
     </div><br>
     <div class="form-group">
-        <label for="name">이름: </label>
+        <label for="name">이름* : </label>
         <input type="text" class="form-control" name="name" id="name" placeholder="Name">
     </div><br>
     <div class="form-group">
-        <label for="nick">닉네임: </label>
+        <label for="nick">닉네임* : </label>
         <input type="text" class="form-control" name="nick" id="nick" placeholder="Nickname">
     </div><br>
     <div class="form-group">
-        <label for="prefer">관심사: </label>
+        <label for="prefer">관심사 : </label>
         <div class="radio">
         <label><input type="radio" name="prefer" value="운동">운동</label>
         </div>
@@ -74,7 +74,7 @@
         </div>
     </div><br>
     <div class="form-group">
-        <label for="rid">추천인: </label>
+        <label for="rid">추천인 : </label>
         <input type="text" class="form-control" name="rid" id="rid" placeholder="recommender ID">
     </div><br><br>
         <button type="submit" class="btn btn-danger" onclick="return joinCheck()">회원가입</button>    
