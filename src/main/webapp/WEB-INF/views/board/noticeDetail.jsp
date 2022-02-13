@@ -49,7 +49,7 @@
 </div>
 
 <div align="center">
- <a href='javascript:history.go(-1)' style="border-radius:3px; background-color: Gray; color:white; display:inline-block; width: 3em; height: 1.5em; font-size: 18px;">목록</a>&nbsp;&nbsp;
+ <a href='javascript:history.go(-1)' class="btn btn-primary" style="font-size: 13px;">목록</a>&nbsp;&nbsp;
  </div>
 
 </body>

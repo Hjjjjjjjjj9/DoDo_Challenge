@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>너Do나Do : 회원가입</title>
+<title> 회원가입</title>
+<link rel="icon" href="resources/image/skyblue2.ico" type="image/x-icon" sizes="16x16">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/joinFormCheck.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
@@ -18,6 +19,21 @@
     .container.custom-container {
       padding: 0 8rem;
     }
+    
+  @font-face {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    }
+/* * {font-family: "GangwonEduPowerExtraBoldA";}  */
+* {font-family: "Pretendard-Regular";}       
 </style>
 </head>
 
@@ -77,7 +93,7 @@
         <label for="rid">추천인: </label>
         <input type="text" class="form-control" name="rid" id="rid" placeholder="recommender ID">
     </div><br><br>
-        <button type="submit" class="btn btn-danger" onclick="return joinCheck()">회원가입</button>    
+        <button type="submit" class="btn btn-primary" onclick="return joinCheck()">회원가입</button>    
 	</form>
 <c:if test="${not empty message}">
 <br>${message}<br><br> 

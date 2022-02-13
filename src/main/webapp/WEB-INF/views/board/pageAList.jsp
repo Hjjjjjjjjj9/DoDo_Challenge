@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>고객지원</title>
-	
+	<link rel="icon" href="resources/image/skyblue2.ico" type="image/x-icon" sizes="16x16">
 	
 	<style>
      table {text-align: center; margin-left: auto; margin-right: auto;}
@@ -16,7 +16,23 @@
      .td2 { font-size: 10pt; width:17.5%;}
      th {font-size: 10pt; width: 10%;}
      .th1 {font-size: 10pt;}
-      a {text-decoration: none;}
+      a {text-decoration: none !important;}
+      
+       @font-face {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    }
+/* * {font-family: "GangwonEduPowerExtraBoldA"; */
+}
+* {font-family: "Pretendard-Regular";}     
 	</style>
 </head>
 
@@ -88,9 +104,9 @@
 </div>
 
 
-<div class="row container-fluid" style="height: 10rem; position: fixed; bottom: 0;">
+<div class="row container-fluid" style="height: 10rem; position: absolute; background: WhiteSmoke; ">
   <%@ include file="/WEB-INF/views/footer.jsp" %>
-</div>
+  </div>
 
 </body>
 </html>

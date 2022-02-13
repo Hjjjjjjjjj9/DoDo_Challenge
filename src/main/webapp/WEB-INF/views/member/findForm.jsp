@@ -9,7 +9,8 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** FindForm2 **</title>
+<title> FindForm2 </title>
+<link rel="icon" href="resources/image/skyblue2.ico" type="image/x-icon" sizes="16x16">
 	<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>
 	<link href="resources/css/bootstrap.min.css" rel="stylesheet">

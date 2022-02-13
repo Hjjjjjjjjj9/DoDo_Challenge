@@ -10,7 +10,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 -->
-<title>>너Do나Do : 내정보</title>
+<title> 마이페이지</title>
+<link rel="icon" href="resources/image/skyblue2.ico" type="image/x-icon" sizes="16x16">
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -26,6 +27,24 @@
         }
     })
     </script>
+    
+<style>
+@font-face {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {font-family: "GangwonEduPowerExtraBoldA";}
+li span{
+  font-weight:bold;
+  text-align: center;
+  cursor:pointer;
+} 
+
+
+</style>	    
 </head>
 <body>
 <!-- svg path -->
@@ -47,7 +66,7 @@
       <div class="col-3">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
         <br>
-        <svg class="d-flex justify-content-center"><use xlink:href="#people-circle"/></svg>
+        <svg  style="width: 7em; height: 8em; align-self: center;" ><use xlink:href="#people-circle"/></svg>
         <br>
         <div class="fs-5 text-center">${loginName} 님 반갑습니다!</div>
         <div class="fs-6 text-center">point : ${loginPoint}</div>
@@ -88,7 +107,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link link-dark">
+            <a href="#" class="nav-link link-dark" id="agree">
               개인정보 이용내역
             </a>
           </li>

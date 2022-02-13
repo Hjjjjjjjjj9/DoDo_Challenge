@@ -8,10 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Challenge List</title>
+<link rel="icon" href="resources/image/skyblue2.ico" type="image/x-icon" sizes="16x16">
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>
 	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<script src="resources/myLib/mainPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
+	
+<style>
+
+</style>	
 <script>
 $(function () {
 	$('#searchButton1').click(function() {
@@ -54,6 +59,41 @@ $(function () {
 	}); 
 }); //ready
 </script>
+<style>
+a { 
+ text-decoration: none !important;
+ color:black  !important;
+ }
+.card-text span {
+    color: #6423ff;
+    background: rgba(100, 35, 255, 0.04);
+    border:solid blue;
+    border-width:thin; 
+    font-size: 12px;
+      
+  } 
+ .search{
+    border-width:1px;
+    height: 2em;
+    background-color: white;
+    border-color: blue;
+    border-right: none;
+    
+ } @font-face {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    }
+/* * {font-family: "GangwonEduPowerExtraBoldA";} */
+* {font-family: "Pretendard-Regular";}    
+</style>
 </head>
 <body>
 
@@ -65,17 +105,17 @@ $(function () {
       <li class="nav-item col-2">
         <a class="nav-link disabled" style="text-align: center;"> </a></li>
       <li class="nav-item col-1">
-        <span class="nav-link" onclick="changeView(6)" id="recom" style="text-align: center;">전체 목록</span></li>
+        <span class="nav-link" onclick="changeView(6)" id="recom" style="text-align: center; color:black !important;">전체 목록</span></li>
       <li class="nav-item col-1">
-        <span class="nav-link" onclick="changeView(7)" id="recruit" style="text-align: center;">모 집</span></li>
+        <span class="nav-link" onclick="changeView(7)" id="recruit" style="text-align: center; color:black !important; ">모 집</span></li>
       <li class="nav-item col-1">
-        <span class="nav-link" onclick="changeView(8)"id="doing"  style="text-align: center;">진 행</span></li>
+        <span class="nav-link" onclick="changeView(8)"id="doing"  style="text-align: center; color:black !important;">진 행</span></li>
       <li class="nav-item col-1">
-        <span class="nav-link" onclick="changeView(9)"id="done" style="text-align: center;">완 료</span></li>
+        <span class="nav-link" onclick="changeView(9)"id="done" style="text-align: center; color:black !important;">완 료</span></li>
       <li class="nav-item col-3">
         <a class="nav-link disabled" style="text-align: center;"> </a></li>
       <li class="nav-item col-1">
-        <span class="nav-link" onclick="changeView(10)" id="notice" style="text-align: center;">공지사항</span></li>
+        <span class="nav-link" onclick="changeView(10)" id="notice" style="text-align: center; color:black !important;">공지사항</span></li>
       <li class="nav-item col-2">
         <a class="nav-link disabled" style="text-align: center;"> </a></li>
     </ul>
@@ -85,14 +125,17 @@ $(function () {
   <div class="col-8">
     <!-- 키워드 검색 -->
 	<br>
+	<div style=" float: right;">
 	<nav class="navbar navbar-light">
 	  <div class="container-fluid">
 	    <form class="d-flex" action="checkTitle" method="get">
-	      <button class="btn btn-outline-success" type="submit" id="searchButton1">🔍</button>
-	      <input class="form-control me-2" type="text" name="check" placeholder="검색어를 입력하세요" aria-label="Search">
-	    </form>
+      <button class="search" type="submit" id="searchButton1"><img src="resources/image/search.png"  style="height:27px; width:25px;"></button><!-- 🔍 -->
+      <input class="form-control me-2" type="text" name="check" placeholder="검색어를 입력하세요" aria-label="Search" style=" border-radius:0px; border-color: blue; height:2em;">
+        </form>
 	  </div>
 	</nav>
+	</div>
+	<div style="float: left;">
 	<!-- 진행 상황 검색 -->
 	<form action="checkState" method="get">
 	  &nbsp;&nbsp;&nbsp;
@@ -102,11 +145,14 @@ $(function () {
 	    <option value="doing">진행중</option>
 	    <option value="done">완료</option>
 	  </select>
-	  <input type="submit" value="조회" id="searchButton3" >&nbsp;
+	  <input class="btn btn-primary"  style="font-size: x-small;" type="submit" value="조회" id="searchButton3" >&nbsp;
 	</form>
+	</div>
+	<br>
 	<!-- 카테고리별 검색 -->
-	<div class="row">
-	  <div class="col-7">
+	<br>
+	<div style="float: left;">
+	  <div class="col-12">
 	    <form action="checkCategory" method="get">
 			<b>&nbsp;&nbsp;&nbsp;
 			카테고리 : </b>
@@ -118,46 +164,49 @@ $(function () {
 				<label for="l"> 생활&nbsp;</label>
 			<input type="checkbox" name="check" id="h" value="취미">
 				<label for="h"> 취미&nbsp;&nbsp;</label>
-			<input type="submit" value="검색" id="searchButton2" >&nbsp;
-			<input type="reset" value="취소">
+			<input class="btn btn-primary"  style="font-size:  x-small;" type="submit" value="검색" id="searchButton2" >&nbsp;
+			<input class="btn btn-primary" style="font-size:  x-small;"  type="reset" value="취소">
 		</form>
 	  </div>
 	</div>
-	
+	<br><br>
 	<c:if test="${not empty message}">
 	=> ${message}<br>
 	</c:if>
-	
+	<br>
 	<!-- 글목록 -->
 	<hr>
-	<div class="row justify-content-center row-cols-4">
-	  <c:forEach var="list" items="${banana}">
-	    <div class="card" style=" height: 15rem; margin: 20px;">
-	      <img src="${list.thumbnail}" class="card-img-top" height="150px">
-		   <div class="card-body">
-	         <p class="card-text">
-	         <c:if test="${not empty loginID}">
-	           <a href="cdetail?seq=${list.seq}">${list.title}</a>
-	         </c:if>
-	         <c:if test="${empty loginID}">
-	           <a href="loginform">${list.title}</a>
-	         </c:if>
-			 <br>카테고리 : 
-				<c:if test="${list.category == '공부'}">공부</c:if>
-				<c:if test="${list.category == '운동'}">운동</c:if>
-				<c:if test="${list.category == '생활'}">생활</c:if>
-				<c:if test="${list.category == '취미'}">취미</c:if>
-	 		  <br> 작성자 : ${list.id}
-	 		  <br> 작성일 : <fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd" /></p>
-	        </div>
-	      </div>
-	    </c:forEach>
-	  </div> 
-	
-	<hr>
+	<div style="float: right;">
 	<c:if test="${not empty loginID}">
 	  <a href="cinsertf">챌린지 등록</a><br>
 	</c:if>
+	</div>
+	 <br> 
+	 <br>
+	  <div class="row justify-content-center row-cols-4">
+    <c:forEach var="list" items="${banana}">
+      <div class="card" style=" height: 15rem; margin: 20px;">
+        <img src="${list.thumbnail}" onClick="location.href='cdetail?seq=${list.seq}'" class="card-img-top" style="cursor:pointer; height:150px;">
+	    <div class="card-body">
+          <p class="card-text">
+          <c:if test="${list.category == 'A'}"><span>공부</span></c:if>
+	   	  <c:if test="${list.category == 'B'}"><span>운동</span></c:if>
+		  <c:if test="${list.category == 'C'}"><span>생활</span></c:if>
+		  <c:if test="${list.category == 'D'}"><span>취미</span></c:if>
+          <c:if test="${not empty loginID}">
+          <a href="cdetail?seq=${list.seq}">${list.title}</a>
+          </c:if>
+          <c:if test="${empty loginID}">
+          <a href="loginform">${list.title}</a>
+          </c:if>
+		  <br>
+ 		  <a>작성자 : ${list.id}</a></p>
+        </div>
+      </div>
+    </c:forEach>
+  </div>
+	  
+	  
 	
 	<!-- 페이지 번호  -->
 	<hr>

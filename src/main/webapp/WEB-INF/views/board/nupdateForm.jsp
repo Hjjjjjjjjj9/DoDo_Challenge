@@ -27,10 +27,10 @@
   <div>
     <table class="table" border="2" style="width: 60em; margin-left:auto; margin-right: auto;">
       <tr>
-        <th colspan="9" style="border-color:GhostWhite; text-align: center; background: GhostWhite;"><input name="seq" value="${napple.seq}" hidden> <input name="title" value ="${napple.title}"></th>
+        <th colspan="9" style="border-color:GhostWhite; text-align: center;"><input name="seq" value="${napple.seq}" hidden> <input name="title" value ="${napple.title}"></th>
       </tr>
       <tr>
-        <th scope="col" colspan="5" style="border-bottom-color:Gainsboro; text-align: center; font-size:5px; background: GhostWhite"> 작성자 : 관리자 / 작성일 :${napple.regdate} / 조회수 :${napple.cnt}</th>
+        <th scope="col" colspan="5" style="border-bottom-color:Gainsboro; text-align: center; font-size:5px;"> 작성자 : 관리자 / 작성일 :${napple.regdate} / 조회수 :${napple.cnt}</th>
       </tr> 
       <tr>
 		<td style="text-align: center;">

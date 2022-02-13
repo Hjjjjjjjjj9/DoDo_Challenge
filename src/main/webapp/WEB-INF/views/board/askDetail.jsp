@@ -14,20 +14,20 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	
 	<style>
-      a {text-decoration: none;}
+      a {text-decoration: none !important; }
 	</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <br>
-<div style="margin-left: 5em;">
+<div style="margin-left: 10em;">
   <h4>1:1 문의</h4>
 </div>
-<hr style="width: 95%; margin-left: auto;margin-right: auto;">
+<hr style="width: 75%; margin-left: auto;margin-right: auto;">
    
 <!-- 상세보기 table -->
 <div class="row">
-  <div style="width: 95%; margin-left: auto; margin-right: auto;">
+  <div style="width: 75%; margin-left: auto; margin-right: auto;">
     <table class="table">
       <tr>
         <th colspan="9" style="border-color:White; text-align: center; font-size:20px;" ><a hidden>${aapple.seq}${aapple.root}</a>${aapple.title}</th>
@@ -62,10 +62,11 @@
 </div>
 
 <div align="center">
-<a href='javascript:history.go(-1)' style="border-radius:3px; background-color: Gray; color:white; display:inline-block; width: 3em; height: 1.5em; font-size: 18px;">목록</a>&nbsp;&nbsp;
+<a href='javascript:history.go(-1)' class="btn btn-primary" style="font-size: 13px;">목록</a>&nbsp;&nbsp;
 </div>
-
-<div class="row container-fluid" style="height: 10rem; position: fixed; bottom: 0;">
+<br>
+<br>
+<div class="row container-fluid" style="height: 10rem; position: absolute; background: WhiteSmoke; ">
   <%@ include file="/WEB-INF/views/footer.jsp" %>
 </div>
 </body>

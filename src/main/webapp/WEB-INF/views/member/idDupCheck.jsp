@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** ID 중복 확인 **</title>
+<title> ID 중복 확인 </title>
+<link rel="icon" href="resources/image/skyblue2.ico" type="image/x-icon" sizes="16x16">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/joinFormCheck.js"></script>
 <script>

@@ -30,7 +30,9 @@
   </div>
 
 <hr>
-<a href="home">[Home]</a>
+<br><br><br>
+
+<a style="float: left;" href="home">[Home]</a>
 
 </body>
 </html>

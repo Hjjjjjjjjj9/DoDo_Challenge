@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** PW Update Form **</title>
+<title> PW Update Form </title>
+<link rel="icon" href="resources/image/skyblue2.ico" type="image/x-icon" sizes="16x16">
 	<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
 	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>	

@@ -58,3 +58,18 @@ function changeView(value){
 		location.href="plist"
 	}
 }
+
+/* 랭킹 */
+window.onload = function(){
+	$.ajax({
+		type:"Get",
+		url:"ranklist",
+		datatype:"html",
+		success:function(resultPage) {
+			$('#rankarea').html(resultPage);	
+		},
+		error:function() {
+			alert("~~ 서버오류!!! 잠시후 다시 하세요 ~~");
+		}
+	}); //ajax
+};

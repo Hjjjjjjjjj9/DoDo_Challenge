@@ -25,7 +25,7 @@ $(document).ready(function(){
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <br>
-<div>
+<div style="margin-left: 10em;">
   <p>1:1문의 작성하기</p>
 </div>
 <br>
@@ -33,16 +33,22 @@ $(document).ready(function(){
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <div class="row-col-3">
   <div>
-  <table class="table" border="2" style="width: 60em; margin-left:auto; margin-right: auto;">
-      <tr>
-        <th style="border-color:GhostWhite; text-align: center; background: GhostWhite;" >제목 : <input type="text" name="title" id="title" placeholder="제목을 입력해주세요" size="40"></th>
+  <table class="table" style="width: 60em; margin-left:auto; margin-right: auto;">
+      <tr  style="border-color: White;">
+        <th rowspan="6" width="80" ></th>
+        <th style="border-color: white;">제 목</th>
+        <td style="border-color: white;"><input type="text" name="title" id="title" placeholder="제목을 입력해주세요" size="80"></td>
       </tr>
       <tr>
-        <th scope="col" colspan="5" style="border-bottom-color:Gainsboro; text-align: center;  background: GhostWhite">작성자 : 
-        <input type="text" name="id" value="${loginID}" size="40" readonly="readonly"></th>
+        <th scope="col" colspan="5" style="border-bottom-color:Gainsboro;">작성자 : 
+        <input type="text" name="id" value="${loginID}" size="80" readonly="readonly"></th>
       </tr>
-      <tr>
-         <th style="text-align: center;"><textarea  cols="50" rows="10" name="content" id="content" placeholder="내용을 입력해주세요" ></textarea></th>       
+      <tr style="border-color: White;">
+        <td><input type="text" name="id" value="admin" hidden></td>
+      </tr>
+      <tr  style="border-color: white;">
+        <th >내 용</th>
+        <td><textarea rows="18" cols="81" name="content"   placeholder="내용을 입력해주세요" ></textarea></td>
       </tr>
       <!-- <tr>
         <th>사진첨부</th>
@@ -61,18 +67,22 @@ $(document).ready(function(){
 			</script>
 		</td>
       </tr> -->
-      <tr style="text-align: center;">
-        <td><input type="submit" id="submit" value="등록">&nbsp;&nbsp;
-			<input onclick="javascript:history.go(-1)" type="reset" value="취소"></td>
-      </tr>
-      </table>
-  </div>
+      <tr style="border-color: white;">
+        <td colspan="2" style="text-align: center; border-color: white;">
+          <div style="margin-left: 20em; margin-right: 24em;">
+          <input type="submit" id="submit" value="확인">&nbsp;&nbsp;
+		  <input onclick="javascript:history.go(-1)" type="reset" value="취소">&nbsp;&nbsp;
+		  </div>
+		</td>
+	  </tr>
+    </table>
+</div>
 </div>
 </form>
 
-<div class="row container-fluid" style="height: 10rem; position: fixed; bottom: 0;">
+<div class="row container-fluid" style="height: 10rem; position: absolute; background: WhiteSmoke; ">
   <%@ include file="/WEB-INF/views/footer.jsp" %>
-</div>
+  </div>
 
 </body>
 </html>

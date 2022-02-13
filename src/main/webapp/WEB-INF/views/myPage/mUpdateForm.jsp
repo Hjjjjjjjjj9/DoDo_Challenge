@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>너Do나Do : 회원수정</title>
+<title> 회원정보수정</title>
+<link rel="icon" href="resources/image/skyblue2.ico" type="image/x-icon" sizes="16x16">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/mUpdateCheck.js"></script>
 <script> 

@@ -25,10 +25,10 @@
   <div>
     <table class="table" border="2" style="width: 60em; margin-left:auto; margin-right: auto;">
       <tr>
-        <th colspan="9" style="border-color:GhostWhite; text-align: center; background: GhostWhite;" >글번호: <input name="seq" value="${aapple.seq}" hidden><input name="title" value="${aapple.title}"></th>
+        <th colspan="9" style="border-color:GhostWhite; text-align: center;" >글번호: <input name="seq" value="${aapple.seq}" hidden><input name="title" value="${aapple.title}"></th>
       </tr>
       <tr>
-        <th scope="col" colspan="5" style="border-bottom-color:gray; text-align: center; font-size:5px; background: GhostWhite">작성자: ${aapple.id}  작성일 :${aapple.regdate}</th>
+        <th scope="col" colspan="5" style="border-bottom-color:gray; text-align: center; font-size:5px;">작성자: ${aapple.id}  작성일 :${aapple.regdate}</th>
       </tr>
       <tr>
 		<td style="text-align: center;">

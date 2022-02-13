@@ -11,6 +11,20 @@
 	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<script src="resources/myLib/mainPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
+<style>
+a { 
+ text-decoration: none !important;
+ color: black !important;
+ }
+ .card-text span {
+    color: #6423ff;
+    background: rgba(100, 35, 255, 0.04);
+    border:solid blue;
+    border-width:thin; 
+    font-size: 12px;
+      
+  } 
+</style>
 </head>
 <body>
 
@@ -22,9 +36,13 @@
   <div class="row justify-content-center row-cols-4">
     <c:forEach var="list" items="${banana}">
       <div class="card" style=" height: 15rem; margin: 20px;">
-        <img src="${list.thumbnail}" class="card-img-top" height="150px">
+       <img src="${list.thumbnail}" onClick="location.href='cdetail?seq=${list.seq}'" class="card-img-top" style="cursor:pointer; height:150px;">
 	    <div class="card-body">
           <p class="card-text">
+          <c:if test="${list.category == 'A'}"><span>공부</span></c:if>
+	   	  <c:if test="${list.category == 'B'}"><span>운동</span></c:if>
+		  <c:if test="${list.category == 'C'}"><span>생활</span></c:if>
+		  <c:if test="${list.category == 'D'}"><span>취미</span></c:if>
           <a href="cdetail?seq=${list.seq}">${list.title}</a>
         </div>
       </div>

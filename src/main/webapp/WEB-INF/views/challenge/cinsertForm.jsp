@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Challenge Input</title>
+<link rel="icon" href="resources/image/skyblue.ico" type="image/x-icon" sizes="16x16">
 	<script src="resources/myLib/jquery-3.2.1.min.js"></script>
 	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
